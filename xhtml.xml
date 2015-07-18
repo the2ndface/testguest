@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><templates><template autoinsert="false" context="php_new_file_context" deleted="false" description="XHTML 1.0 file" enabled="true" id="org.eclipse.php.ui.editor.templates.php.html.frameset" name="New PHP file - XHTML file">&lt;?php 
+/**
+ * TestGuest Version1.0
+ * ==============================================
+ * Copy 2010-2012 yc60
+ * Web:http://www.yc60.com
+ * ==============================================
+ * Author:@author
+ * Date:@date()
+ */
+ ?&gt;
+ &lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
+&lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
+&lt;head&gt;
+&lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /&gt;
+&lt;title&gt;Insert into title&lt;/title&gt;
+
+&lt;/head&gt;
+&lt;body&gt;
+		
+&lt;/body&gt;
+&lt;/html&gt;</template></templates>
