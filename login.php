@@ -8,7 +8,7 @@
  * Author:@author
  * Date:2015年7月18日
  */
-
+    session_start();
     //防止恶意调用
     define('IN_TG', true);
     //判断当前页面
@@ -16,6 +16,10 @@
     //引入公共文件
     require dirname(__FILE__).'/includes/common.inc.php';
 
+    //开始处理登录状态
+    if($_GET['action']=='login'){
+        exit('123');
+    }
  ?>
  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -25,6 +29,7 @@
 <?php 
 	require 'includes/title.inc.php';
 ?>
+<script type="text/javascript" src="js/code.js"></script>
 <script type="text/javascript" src="js/login.js"></script>
 </head>
 <body>

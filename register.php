@@ -113,6 +113,7 @@
 <?php 
 	require 'includes/title.inc.php';
 ?>
+<script type="text/javascript" src="js/code.js"></script>
 <script type="text/javascript" src="js/register.js"></script>
 </head>
 <body>
