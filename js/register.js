@@ -5,7 +5,7 @@ window.onload = function(){
 		window.open('face.php','face','width=400,height=400,top=0,left=0,scrollbars=1');
 	}
 	
-	};
+	
 	
 	//表单验证
 	var fm = document.getElementsByName('register')[0];
@@ -98,5 +98,5 @@ window.onload = function(){
 		}
 		
 		return true;
-	}
+	};
 };
