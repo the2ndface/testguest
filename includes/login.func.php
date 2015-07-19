@@ -38,6 +38,34 @@ function _check_username($_string,$_min_num,$_max_num){
 
 }
 
+//生成登录cookies
+/**
+ * 
+ * @param unknown $_username
+ * @param unknown $_uniqid
+ * @param unknown $_time
+ */
+function _setcookies($_username,$_uniqid,$_time){
+    switch ($_time){
+        case '0':
+            setcookie('username',$_username);
+            setcookie('uniqid',$_uniqid);
+            break;
+        case '1':
+            setcookie('username',$_username,time()+86400);
+            setcookie('uniqid',$_uniqid,time()+86400);
+            break;
+        case '2':
+            setcookie('username',$_username,time()+604800);
+            setcookie('uniqid',$_uniqid,time()+604800);
+            break;
+        case '3':
+            setcookie('username',$_username,time()+2592000);
+            setcookie('uniqid',$_uniqid,time()+2592000);
+            break;
+    }
+    
+}
 
 //密码验证
 /**

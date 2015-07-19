@@ -44,7 +44,7 @@
 		echo "<script type='text/javascript'>alert('$_info');location.href='$_url';</script>";
 		exit();
 	    }else{
-	        header('Location'.$_url);
+	        header('Location:'.$_url);
 	    }
 		
 	}
@@ -70,13 +70,35 @@
 		
 	}
 	
+	
+//登录状态
+/**
+ * 判断登录状态
+ */
+    function _login_state(){
+        if(isset($_COOKIE['username'])){
+            _alert_back('登录状态下无法进行此操作');
+        }
+    }
+	
+	
 /**
  * 销毁session
  */
 	function _session_destroy(){
 	    session_destroy();
 	}
-	
+
+//销毁cookies
+/**
+ * 销毁COOKIE
+ */
+	function _unsetcookies(){
+	    setcookie('username','',time()-1);
+	    setcookie('uniqid','',time()-1);
+	    _session_destroy();
+	    _location(NULL, 'index.php');
+	}
 	
 /**
  * _check_code()

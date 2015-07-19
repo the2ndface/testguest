@@ -23,6 +23,8 @@
 		exit('_mysql_string函数不存在，请检查');
 	}
 	
+	//判断登录状态
+	_login_state();
 	/**
 	 * _check_uniqid() 检测唯一标识符
 	 * @param string $_first_uniqid

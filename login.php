@@ -15,6 +15,8 @@
     define('SCRIPT','login' );
     //引入公共文件
     require dirname(__FILE__).'/includes/common.inc.php';
+    //判断登录状态
+    _login_state();
 
     //开始处理登录状态
     if($_GET['action']=='login'){
@@ -29,13 +31,14 @@
  		$_clean['password'] = _check_password($_POST['password'],6);
  		$_clean['time'] = _check_time($_POST['time']);
  		
- 		printf($_clean);
+ 		
  		//登录验证
  		if(!!$_rows = _fetch_array("SELECT tg_username,tg_uniqid FROM tg_user WHERE tg_username='{$_clean['username']}' and tg_password='{$_clean['password']}' and tg_active='' LIMIT 1"))
  		{
  		    _close();
  		    _session_destroy();
- 		    _location(NULL, 'index.php');
+ 		    _setcookies($_rows['tg_username'], $_rows['tg_uniqid'], $_clean['time']);
+ 		    _location(null, 'index.php');
  		}else{
  		    _close();
  		    _session_destroy();
