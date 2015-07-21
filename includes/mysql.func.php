@@ -71,10 +71,19 @@ function _query($_sql){
 /**
  * _fetch_array() 用来返回数据库的操作结果
  * @param unknown $_sql
- * @return array  从数据库结果集中返回一行做为数组，:
+ * @return array  从数据库结果集中返回一行做为数组,并将指针移至下一条记录开头处:
  */
 function _fetch_array($_sql){
 	return mysql_fetch_array(_query($_sql),MYSQL_ASSOC);
+}
+
+/**
+ * _fetch_array_list 从数据库的结果集里返回一条数据
+ * @param unknown $_result
+ * @return multitype:
+ */
+function _fetch_array_list($_result){
+    return mysql_fetch_array($_result,MYSQL_ASSOC);
 }
 
 /**

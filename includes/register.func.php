@@ -57,7 +57,7 @@
 			_alert_back('用户名长度不得小于'.$_min_num.'位或者大于'.$_max_num);
 		}
 		//判断敏感字符
-		$_char_pattern = '/[<>\'\"\ \　]/';
+		$_char_pattern = '/[<>\'\"\ ]/';
 		if(preg_match($_char_pattern,$_string)){
 			_alert_back('用户名不得包含敏感字符');
 		}
