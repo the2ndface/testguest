@@ -73,7 +73,7 @@
 	<?php
 	   } 
 	?>	
-</div>	
+	
 <div id='page_num'>
     <ul>
         <?php 
@@ -87,7 +87,31 @@
         ?>
         
     </ul>
-    
+</div>
+<div id='page_text'>
+    <ul>
+        <?php 
+            echo '<li>'.$_page.'/'.$_pageabsolute.'页 | </li>';
+            echo '<li>共有<strong>'.$_num.'</strong>位博友 | </li>';
+            if($_page ==1){
+                echo '<li>首页 | </li>';
+                echo '<li>上一页 | </li>';
+            }else{
+                echo '<li><a href="'.SCRIPT.'.php">首页</a> | </li>';
+                echo '<li><a href="'.SCRIPT.'.php?page='.($_page-1).'">上一页</a> | </li>';
+            }
+            if($page == $_pageabsolute){
+                echo '<li>下一页 | </li>';
+                echo '<li>尾页</li>';
+            }else{
+                echo '<li><a href="'.SCRIPT.'.php?page='.($_page+1).'">下一页</a> | </li>';
+                echo '<li><a href="'.SCRIPT.'.php?page='.$_pageabsolute.'">尾页</a></li>';
+            }
+            
+        ?>
+    </ul>
+
+</div>
 </div>
     <?php 
 		require ROOT_PATH.'includes/footer.inc.php';
