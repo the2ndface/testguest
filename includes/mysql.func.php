@@ -86,6 +86,11 @@ function _fetch_array_list($_result){
     return mysql_fetch_array($_result,MYSQL_ASSOC);
 }
 
+function _num_rows($_result){
+    return mysql_num_rows($_result);
+}
+
+
 /**
  * _affected_rows() 返回受SQL语句影响的行数
  * @return int number 

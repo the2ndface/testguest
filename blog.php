@@ -13,13 +13,34 @@
  //引入公共文件	
  	require dirname(__FILE__).'/includes/common.inc.php';
  //分页模块
- $_page = $_GET['page']	;
+ //判断是否存在$_page
+ if(isset($_GET['page'])){
+     $_page = $_GET['page']	;
+     if(empty($_page) || $_page<0 || !is_numeric($_page)){
+         $_page = 1;
+     }else{
+         $_page = intval($_page);
+     }
+ }else{
+     $_page = 1;
+ }
+
  //每页显示条数
+ $_num = _num_rows(_query("SELECT tg_id FROM tg_user"));
  $_pagesize = 10;
+ //获取生成页数
+ if($_num==0){
+     $_pageabsolute = 1;
+ }else{
+     $_pageabsolute = ceil($_num/$_pagesize);
+ }
+ 
+ if($_page>$_pageabsolute){
+     $_page = $_pageabsolute;
+ }
+ //页面的起始位置
  $_pagenum = ($_page-1)*$_pagesize;
- //获取生成几页
- $_num = mysql_num_rows(_query("SELECT tg_id FROM tg_user"));
- $_pageabsolute = ceil($_num/$_pagesize);
+ 
  //从数据库取出结果集
  $_result=_query("SELECT tg_username,tg_sex,tg_face FROM tg_user ORDER BY tg_reg_time DESC LIMIT $_pagenum,$_pagesize");
 ?>
