@@ -60,6 +60,43 @@ h2{
 	text-indent:-9999px;	
 }
 
+#page_num{
+
+	height:20px;
+	position:relative;
+	padding:10px 0;
+
+}
+
+#page_num ul{
+	position:absolute;
+	right:30px;
+	height:20px;
+
+}
+
+#page_num ul li{
+	float:left;
+	width:26px;
+	height:20px;
+
+}
+
+#page_num ul li a {
+	display:block;
+	width:20px;
+	height:20px;
+	line-height:20px;
+	border:1px solid #333;
+	text-align:center;
+	text-decoration:none;
+}
+
+#page_num ul li a:hover,#page_num ul li a.selected {
+	background:#666;
+	font-weight:bold;
+	color:#fff;
+}
 
 #footer{
 	clear:both;
