@@ -114,6 +114,97 @@
 	}
 	
 /**
+ * _page()分页函数
+ * @param $_sql 数据库语句，用以返回所有记录数
+ * @param $_size 每页显示条数
+ * @return 通过全局变量，将值传递出去
+ * 
+ */
+	function _page($_sql,$_size){
+	    //通过全局变量，将值传递出去
+	    global $_page,$_pageabsolute,$_num,$_pagenum,$_pagesize;
+	    //分页模块
+	    //判断是否存在$_page
+	    if(isset($_GET['page'])){
+	        $_page = $_GET['page']	;
+	        if(empty($_page) || $_page<0 || !is_numeric($_page)){
+	            $_page = 1;
+	        }else{
+	            $_page = intval($_page);
+	        }
+	    }else{
+	        $_page = 1;
+	    }
+	    
+	    //每页显示条数
+	    $_num = _num_rows(_query($_sql));
+	    $_pagesize = $_size;
+	    //获取生成页数
+	    if($_num==0){
+	        $_pageabsolute = 1;
+	    }else{
+	        $_pageabsolute = ceil($_num/$_pagesize);
+	    }
+	    
+	    if($_page>$_pageabsolute){
+	        $_page = $_pageabsolute;
+	    }
+	    //页面的起始位置
+	    $_pagenum = ($_page-1)*$_pagesize;
+	    
+	}
+	
+	
+	
+/**
+ * _paging() 根据参数不同，使用不同的分页显示方式
+ * @param unknown $_type  1｜2  1代表数字，2代表文本
+ * @return 返回分页
+ */	
+	
+	function _paging($_type){
+	    //使变量可以页面调 用
+	    global $_page,$_pageabsolute,$_num;
+	    if($_type==1){
+	        echo '<div id="page_num">';
+	        echo '<ul>';
+	        for($i=0;$i<$_pageabsolute;$i++){
+	            if($_page==($i+1)){
+	                echo '<li><a href="blog.php?page='.($i+1).'" class="selected">'.($i+1).'</a></li>';
+	            }else{
+	                echo '<li><a href="blog.php?page='.($i+1).'" >'.($i+1).'</a></li>';
+	            }
+	        }
+	        echo '</ul>';
+	        echo '</div>';
+	    }elseif($_type==2){
+	        echo "<div id='page_text'>";
+	        echo '<ul>';
+	        echo '<li>'.$_page.'/'.$_pageabsolute.'页 | </li>';
+	        echo '<li>共有<strong>'.$_num.'</strong>位博友 | </li>';
+	        if($_page ==1){
+	            echo '<li>首页 | </li>';
+	            echo '<li>上一页 | </li>';
+	        }else{
+	            echo '<li><a href="'.SCRIPT.'.php">首页</a> | </li>';
+	            echo '<li><a href="'.SCRIPT.'.php?page='.($_page-1).'">上一页</a> | </li>';
+	        }
+	        if($page == $_pageabsolute){
+	            echo '<li>下一页 | </li>';
+	            echo '<li>尾页</li>';
+	        }else{
+	            echo '<li><a href="'.SCRIPT.'.php?page='.($_page+1).'">下一页</a> | </li>';
+	            echo '<li><a href="'.SCRIPT.'.php?page='.$_pageabsolute.'">尾页</a></li>';
+	        }
+	        echo '</ul>';
+	        echo '</div>';
+	    }
+	    
+	    
+	}
+	
+	
+/**
  * _code()函数是验证码函数
  * @access public
  * @param int $_width 表示验证码的长度
