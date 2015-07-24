@@ -99,6 +99,13 @@ function _affected_rows(){
 	return mysql_affected_rows();
 }
 
+/**
+ * _free_result 释放结果集
+ * @param unknown $_result
+ */
+function _free_result($_result){
+    mysql_free_result($_result);
+}
 
 /**
  * _is_repeat() 判断用户是否被注册

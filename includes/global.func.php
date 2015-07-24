@@ -34,6 +34,25 @@
 		exit();
 	}
 	
+
+/**
+ * _html() 格式化HTML特殊字符。
+ * @param unknown $_string
+ */
+	function _html($_string){
+	    if(is_array($_string)){
+	        foreach ($_string as $_key => $_value){
+	            $_string[$_key]= _html($_value);
+	        }
+	    }else{
+	        $_string = htmlspecialchars($_string);
+	    }
+	    
+	    return $_string;
+	}
+	
+	
+	
 	/**
 	 * 
 	 * @param unknown $_info

@@ -38,6 +38,7 @@
 	<h2>博友列表</h2>
 	<?php 
 	   while(!!$_rows=_fetch_array_list($_result)){
+	       $_rows = _html($_rows);
 	?>
 	<dl>
 	   <dd class='user'><?php echo $_rows['tg_username']?>(<?php echo $_rows['tg_sex']?>)</dd>
@@ -49,6 +50,7 @@
 	</dl>
 	<?php
 	   }
+	   _free_result($_result);
        //调用分面函数，1为数字页，2为文本分页
 	   _paging(2);
 	?>	
