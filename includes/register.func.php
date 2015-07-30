@@ -23,8 +23,7 @@
 		exit('_mysql_string函数不存在，请检查');
 	}
 	
-	//判断登录状态
-	_login_state();
+
 	/**
 	 * _check_uniqid() 检测唯一标识符
 	 * @param string $_first_uniqid
@@ -107,6 +106,25 @@
 		//将密码返回
 		return _mysql_string(sha1($_first_pass));
 	}
+	
+	/**
+	 * 修改密码时修进行密码较验
+	 * @param unknown $_string
+	 * @param unknown $_min_num
+	 * @return Ambigous <unknown, string>
+	 */
+	function _check_modify_password($_string,$_min_num){
+	    if(!empty($_string)){
+	        //判断密码
+	        if(strlen($_string) < $_min_num){
+	            _alert_back('密码不得小于'.$_min_num.'位');
+	        }
+	    }else{
+	        return null;
+	    }
+	    return _mysql_string(sha1($_string));
+	}
+	
 	
 	/*
 	 * _check_question() 

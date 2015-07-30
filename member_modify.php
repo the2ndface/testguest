@@ -15,9 +15,55 @@ define('SCRIPT','member_modify' );
 //引入公共文件
 require dirname(__FILE__).'/includes/common.inc.php';
 if ($_GET['action'] == 'modify') {
-    echo '修改';
+    //为了防止恶意注册和跨站攻击
+    _check_code($_POST['code'], $_SESSION['code']);
+    include ROOT_PATH.'includes/register.func.php';
+    //创建一个空数据，用来存放提交过来的合法数据
+    $_clean = array();
+    
+    $_clean['password'] = _check_modify_password($_POST['password'],6);
+    $_clean['sex'] = _check_sex($_POST['sex']);
+    $_clean['face'] = _check_face($_POST['face']);
+    $_clean['email'] = _check_email($_POST['email'],6,40);
+    $_clean['qq']	= _check_qq($_POST['qq']);
+    $_clean['url'] = _check_url($_POST['url'],40);
+    
+    if(empty($_clean['password'])){
+        _query("UPDATE tg_user SET
+                                    tg_sex='{$_clean['sex']}',
+                                    tg_face='{$_clean['face']}',
+                                    tg_email='{$_clean['email']}',
+                                    tg_qq='{$_clean['qq']}',
+                                    tg_url='{$_clean['url']}'
+                                WHERE tg_username='{$_COOKIE['username']}'
+            
+            ");
+    }else{
+        _query("UPDATE tg_user SET
+                                    tg_password='{$_clean['password']}',
+                                    tg_sex='{$_clean['sex']}',
+                                    tg_face='{$_clean['face']}',
+                                    tg_email='{$_clean['email']}',
+                                    tg_qq='{$_clean['qq']}',
+                                    tg_url='{$_clean['url']}'
+                                    WHERE tg_username='{$_COOKIE['username']}'
+        
+        ");
+    }
+    
+	//判断是否修改成功
+	if (_affected_rows() == 1) {
+		_close();
+		_session_destroy();
+		_location('恭喜你，修改成功！','member.php');
+	} else {
+		_close();
+		_session_destroy();
+		_location('很遗憾，修改失败！','member_modify.php');
+	}
+
 }
-//判断是否登录
+//判断是否正常登录
     if(isset($_COOKIE['username'])){
        //获取数据
        $_rows = _fetch_array("SELECT * FROM tg_user WHERE tg_username='{$_COOKIE['username']}'");
@@ -34,11 +80,11 @@ if ($_GET['action'] == 'modify') {
             
             //性别选择
             if($_html['sex']=='男'){
-                $_html['sex_html']='<input type="radio" name="radio" value="男" checked="checked" >男 </input>
-                                    <input type="radio" name="radio" value="男" >女 </input>';
+                $_html['sex_html']='<input type="radio" name="sex" value="男" checked="checked" >男 </input>
+                                    <input type="radio" name="sex" value="女" >女 </input>';
             }elseif($_html['sex']=='女'){
-                $_html['sex_html']='<input type="radio" name="radio" value="男" >男</input>
-                                    <input type="radio" name="radio" value="男" checked="checked" >女</input> ';
+                $_html['sex_html']='<input type="radio" name="sex" value="男" >男</input>
+                                    <input type="radio" name="sex" value="女" checked="checked" >女</input> ';
             }
             
             //头像选择
@@ -64,7 +110,7 @@ if ($_GET['action'] == 'modify') {
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>多用户留言系统--注册</title>
 <script type="text/javascript" src="js/code.js"></script>
-<script type="text/javascript" src="js/member_modify"></script>
+<script type="text/javascript" src="js/member_modify.js"></script>
 <?php 
 	require 'includes/title.inc.php';
 ?>
@@ -79,9 +125,10 @@ if ($_GET['action'] == 'modify') {
     ?>
     <div id='member_main'>
         <h2>会员管理中心</h2>
-        <form method="post" action="?action=modify">
+        <form method="post" action="?action=modify" name='modify'>
         <dl>
             <dd>用 户 名：<?php echo $_rows['tg_username']?></dd>
+            <dd>性　　别：<input type='password' class='text' name='password' value=''>（为空则不修改）</input></dd>
             <dd>性　　别：<?php echo $_html['sex_html']?></dd>
             <dd>头　　像：<?php echo $_html['face_html']?></dd>
             <dd>电子邮件：<input type="text" class="text" name="email" value="<?php echo $_html['email']?>"></input></dd>

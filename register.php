@@ -17,6 +17,8 @@
  	//引入公共文件	
  	require dirname(__FILE__).'/includes/common.inc.php';
  	
+ 	//判断登录状态
+ 	_login_state();
  	//判断是否提交了数据
  	if($_GET['action'] == 'register' ){
  		
