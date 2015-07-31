@@ -78,7 +78,9 @@
 	}
 	
 	
-	
+	/*
+	 * 
+	 */
 	function _mysql_string($_string){
 		//判断是否开启了自动转义
 		if(!GPC){
@@ -89,29 +91,39 @@
 		
 	}
 	
-	
-//登录状态
-/**
- * 判断登录状态
- */
+
+	/**
+	 * 判断登录状态
+	 */
     function _login_state(){
         if(isset($_COOKIE['username'])){
             _alert_back('登录状态下无法进行此操作');
         }
     }
 	
-	
-/**
- * 销毁session
- */
+
+    /**
+     * 判断数据库的uniqid和cookies内的是否相同
+     * @param unknown $_mysql_uniqid 数据库取出的uniqid
+     * @param unknown $_cookies_uniqid COOKIE内的uniqid
+     */
+    function _uniqid($_mysql_uniqid,$_cookies_uniqid){
+        if($_mysql_uniqid!=$_cookies_uniqid){
+            _alert_back('唯一标识符异常！');
+        }
+    }
+    
+
+    /**
+     * 销毁session
+     */
 	function _session_destroy(){
 	    session_destroy();
 	}
 
-//销毁cookies
-/**
- * 销毁COOKIE
- */
+	/**
+	 * 销毁COOKIE
+	 */
 	function _unsetcookies(){
 	    setcookie('username','',time()-1);
 	    setcookie('uniqid','',time()-1);
@@ -119,26 +131,26 @@
 	    _location(NULL, 'index.php');
 	}
 	
-/**
- * _check_code()
- * @access public
- * @param string $_first_code
- * @param string $_end_code
- * @return void 验证码比对
- */
+    /**
+     * _check_code()
+     * @access public
+     * @param string $_first_code
+     * @param string $_end_code
+     * @return void 验证码比对
+     */
 	function _check_code($_first_code,$_end_code){
 		if($_first_code != $_end_code){
 			_alert_back('验证码不正确!');
 		}
 	}
 	
-/**
- * _page()分页函数
- * @param $_sql 数据库语句，用以返回所有记录数
- * @param $_size 每页显示条数
- * @return 通过全局变量，将值传递出去
- * 
- */
+    /**
+     * _page()分页函数
+     * @param $_sql 数据库语句，用以返回所有记录数
+     * @param $_size 每页显示条数
+     * @return 通过全局变量，将值传递出去
+     * 
+     */
 	function _page($_sql,$_size){
 	    //通过全局变量，将值传递出去
 	    global $_page,$_pageabsolute,$_num,$_pagenum,$_pagesize;
@@ -175,12 +187,11 @@
 	
 	
 	
-/**
- * _paging() 根据参数不同，使用不同的分页显示方式
- * @param unknown $_type  1｜2  1代表数字，2代表文本
- * @return 返回分页
- */	
-	
+    /**
+     * _paging() 根据参数不同，使用不同的分页显示方式
+     * @param unknown $_type  1｜2  1代表数字，2代表文本
+     * @return 返回分页
+     */	
 	function _paging($_type){
 	    //使变量可以页面调 用
 	    global $_page,$_pageabsolute,$_num;
@@ -223,15 +234,15 @@
 	}
 	
 	
-/**
- * _code()函数是验证码函数
- * @access public
- * @param int $_width 表示验证码的长度
- * @param int $_height 表示验证码的高度 
- * @param int $_rnd_code 表示验证码的位数
- * @param bool $_flag 表示验证码的边框
- * @return void 这个函数执行后产生一个验证码
- */
+    /**
+     * _code()函数是验证码函数
+     * @access public
+     * @param int $_width 表示验证码的长度
+     * @param int $_height 表示验证码的高度 
+     * @param int $_rnd_code 表示验证码的位数
+     * @param bool $_flag 表示验证码的边框
+     * @return void 这个函数执行后产生一个验证码
+     */
 	function _code($_width = 75,$_height = 25,$_rnd_code = 4,$_flag=false){
 		//随机码的数量
 		

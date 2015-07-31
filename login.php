@@ -35,6 +35,14 @@
  		//登录验证
  		if(!!$_rows = _fetch_array("SELECT tg_username,tg_uniqid FROM tg_user WHERE tg_username='{$_clean['username']}' and tg_password='{$_clean['password']}' and tg_active='' LIMIT 1"))
  		{
+ 		    _query("UPDATE tg_user SET
+ 		                                 tg_last_time=NOW(),
+ 		                                 tg_last_ip='{$_SERVER['REMOTE_ADDR']}',
+ 		                                 tg_login_count=tg_login_count+1
+ 		                           WHERE
+ 		                                 tg_username='{$_rows['tg_username']}'                
+ 		         		        ");
+ 		    
  		    _close();
  		    _session_destroy();
  		    _setcookies($_rows['tg_username'], $_rows['tg_uniqid'], $_clean['time']);

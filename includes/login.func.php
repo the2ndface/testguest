@@ -38,12 +38,11 @@ function _check_username($_string,$_min_num,$_max_num){
 
 }
 
-//生成登录cookies
 /**
- * 
- * @param unknown $_username
- * @param unknown $_uniqid
- * @param unknown $_time
+ * 生成登录cookies
+ * @param string $_username 保存内容
+ * @param string $_uniqid 保存内容
+ * @param int $_time  cookies保存时间
  */
 function _setcookies($_username,$_uniqid,$_time){
     switch ($_time){

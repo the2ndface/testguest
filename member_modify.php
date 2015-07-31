@@ -17,51 +17,56 @@ require dirname(__FILE__).'/includes/common.inc.php';
 if ($_GET['action'] == 'modify') {
     //为了防止恶意注册和跨站攻击
     _check_code($_POST['code'], $_SESSION['code']);
-    include ROOT_PATH.'includes/register.func.php';
-    //创建一个空数据，用来存放提交过来的合法数据
-    $_clean = array();
-    
-    $_clean['password'] = _check_modify_password($_POST['password'],6);
-    $_clean['sex'] = _check_sex($_POST['sex']);
-    $_clean['face'] = _check_face($_POST['face']);
-    $_clean['email'] = _check_email($_POST['email'],6,40);
-    $_clean['qq']	= _check_qq($_POST['qq']);
-    $_clean['url'] = _check_url($_POST['url'],40);
-    
-    if(empty($_clean['password'])){
-        _query("UPDATE tg_user SET
-                                    tg_sex='{$_clean['sex']}',
-                                    tg_face='{$_clean['face']}',
-                                    tg_email='{$_clean['email']}',
-                                    tg_qq='{$_clean['qq']}',
-                                    tg_url='{$_clean['url']}'
-                                WHERE tg_username='{$_COOKIE['username']}'
+    //为了防止伪造COOKIES，要对比一下唯一标识符uniqid
+    if(!!$_rows=_fetch_array("SELECT tg_uniqid FROM tg_user WHERE tg_username='{$_COOKIE['username']}' LIMIT 1")){
+        include ROOT_PATH.'includes/register.func.php';
+        //对比uniqid
+        _uniqid($_rows['tg_uniqid'],$_COOKIE['uniqid']);        
+        //创建一个空数据，用来存放提交过来的合法数据
+        $_clean = array();
+        
+        $_clean['password'] = _check_modify_password($_POST['password'],6);
+        $_clean['sex'] = _check_sex($_POST['sex']);
+        $_clean['face'] = _check_face($_POST['face']);
+        $_clean['email'] = _check_email($_POST['email'],6,40);
+        $_clean['qq']	= _check_qq($_POST['qq']);
+        $_clean['url'] = _check_url($_POST['url'],40);
+        
+        if(empty($_clean['password'])){
+            _query("UPDATE tg_user SET
+                                        tg_sex='{$_clean['sex']}',
+                                        tg_face='{$_clean['face']}',
+                                        tg_email='{$_clean['email']}',
+                                        tg_qq='{$_clean['qq']}',
+                                        tg_url='{$_clean['url']}'
+                                    WHERE tg_username='{$_COOKIE['username']}'
+                
+                ");
+        }else{
+            _query("UPDATE tg_user SET
+                                        tg_password='{$_clean['password']}',
+                                        tg_sex='{$_clean['sex']}',
+                                        tg_face='{$_clean['face']}',
+                                        tg_email='{$_clean['email']}',
+                                        tg_qq='{$_clean['qq']}',
+                                        tg_url='{$_clean['url']}'
+                                        WHERE tg_username='{$_COOKIE['username']}'
             
             ");
-    }else{
-        _query("UPDATE tg_user SET
-                                    tg_password='{$_clean['password']}',
-                                    tg_sex='{$_clean['sex']}',
-                                    tg_face='{$_clean['face']}',
-                                    tg_email='{$_clean['email']}',
-                                    tg_qq='{$_clean['qq']}',
-                                    tg_url='{$_clean['url']}'
-                                    WHERE tg_username='{$_COOKIE['username']}'
+        }
         
-        ");
-    }
+    	//判断是否修改成功
+    	if (_affected_rows() == 1) {
+    		_close();
+    		_session_destroy();
+    		_location('恭喜你，修改成功！','member.php');
+    	} else {
+    		_close();
+    		_session_destroy();
+    		_location('很遗憾，没有任合数据被修改！','member_modify.php');
+    	}
     
-	//判断是否修改成功
-	if (_affected_rows() == 1) {
-		_close();
-		_session_destroy();
-		_location('恭喜你，修改成功！','member.php');
-	} else {
-		_close();
-		_session_destroy();
-		_location('很遗憾，修改失败！','member_modify.php');
-	}
-
+    }
 }
 //判断是否正常登录
     if(isset($_COOKIE['username'])){
