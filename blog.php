@@ -13,13 +13,18 @@
  //引入公共文件	
  	require dirname(__FILE__).'/includes/common.inc.php';
  
- //调用页函数
+ //调用分页函数
     global $_pagenum,$_pagesize;
     _page('SELECT tg_id FROM tg_user',15);
  	
  
  //从数据库取出结果集
- $_result=_query("SELECT tg_id,tg_username,tg_sex,tg_face FROM tg_user ORDER BY tg_reg_time DESC LIMIT $_pagenum,$_pagesize");
+ $_result=_query("SELECT 
+                                tg_id,tg_username,tg_sex,tg_face 
+                    FROM        tg_user 
+                ORDER BY        tg_reg_time DESC 
+                   LIMIT        $_pagenum,$_pagesize
+                 ");
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">

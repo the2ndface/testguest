@@ -129,6 +129,17 @@
         }
     }
     
+    /**
+     * _title($_string) 显示内容大于14字时，进行截取，只显示前14字
+     * @param unknown $_string
+     * @return string
+     */
+    function _title($_string){
+        if(mb_strlen($_string,'utf-8')>14){
+            $_string=mb_substr($_string, 0,14,'utf-8').'...';
+        }
+        return $_string;
+    }
 
     /**
      * 销毁session
@@ -216,9 +227,9 @@
 	        echo '<ul>';
 	        for($i=0;$i<$_pageabsolute;$i++){
 	            if($_page==($i+1)){
-	                echo '<li><a href="blog.php?page='.($i+1).'" class="selected">'.($i+1).'</a></li>';
+	                echo '<li><a href="'.SCRIPT.'.php?page='.($i+1).'" class="selected">'.($i+1).'</a></li>';
 	            }else{
-	                echo '<li><a href="blog.php?page='.($i+1).'" >'.($i+1).'</a></li>';
+	                echo '<li><a href="'.SCRIPT.'.php?page='.($i+1).'" >'.($i+1).'</a></li>';
 	            }
 	        }
 	        echo '</ul>';

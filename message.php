@@ -24,7 +24,15 @@
         //验证码验证
         _check_code($_POST['code'], $_SESSION['code']);
         //唯一标识符验证
-        if(!!$_rows=_fetch_array("SELECT tg_uniqid FROM tg_user WHERE tg_username='{$_COOKIE['username']}' LIMIT 1")){
+        if(!!$_rows=_fetch_array("SELECT 
+                                         tg_uniqid 
+                                    FROM 
+                                         tg_user 
+                                   WHERE 
+                                         tg_username='{$_COOKIE['username']}' 
+                                  LIMIT  1
+                                 ")
+        ){
             //对比uniqid
             _uniqid($_rows['tg_uniqid'],$_COOKIE['uniqid']);
             include ROOT_PATH.'includes/check.func.php';

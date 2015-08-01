@@ -51,7 +51,7 @@ require dirname(__FILE__).'/includes/common.inc.php';
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>多用户留言系统--注册</title>
+<title>多用户留言系统--会员中心</title>
 <?php 
 	require 'includes/title.inc.php';
 ?>
