@@ -35,6 +35,16 @@
 	}
 	
 
+	/**
+	 * _alert_close 提示信息并关闭窗口
+	 * @param unknown $_info
+	 */
+	function _alert_close($_info){
+	    echo "<script type='text/javascript'>alert('".$_info."');window.close(); </script>";
+	    exit();	    
+	}
+	
+	
 /**
  * _html() 格式化HTML特殊字符。
  * @param unknown $_string

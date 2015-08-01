@@ -18,7 +18,7 @@ require dirname(__FILE__).'/includes/common.inc.php';
 //判断是否登录
     if(isset($_COOKIE['username'])){
        //获取数据
-       $_rows = _fetch_array("SELECT * FROM tg_user WHERE tg_username='{$_COOKIE['username']}'");
+       $_rows = _fetch_array("SELECT * FROM tg_user WHERE tg_username='{$_COOKIE['username']}' LIMIT 1");
        if(!!$_rows){
             $_html = array();
             $_html['username']= $_rows['tg_username'];
