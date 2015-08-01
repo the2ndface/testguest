@@ -262,8 +262,17 @@
 		return $_url;
 	}
 	
-	
-	
+	/**
+	 * 发信内容验证
+	 * @param unknown $_string
+	 * @return unknown
+	 */
+	function _check_content($_string){
+	    if(strlen($_string) < 10 ||strlen($_string) > 200 ){
+	        _alert_back('发信内容不得小于10位或大于200位');
+	    }
+	    return $_string;
+	}
 	
 	
 	

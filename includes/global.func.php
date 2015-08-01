@@ -61,6 +61,24 @@
 	    return $_string;
 	}
 	
+
+	
+	/*
+	 * 对特殊字符进行转义
+	 */
+	function _mysql_string($_string){
+	    //判断是否开启了自动转义
+	    if(!GPC){
+	        if(is_array($_string)){
+	            foreach ($_string as $_key => $_value){
+	                $_string[$_key]= _html($_value);
+	            }
+	        }else{
+	            $_string = mysql_real_escape_string($_string);
+	        }
+	    }
+	    return $_string;
+	}
 	
 	
 	/**
@@ -88,19 +106,7 @@
 	}
 	
 	
-	/*
-	 * 
-	 */
-	function _mysql_string($_string){
-		//判断是否开启了自动转义
-		if(!GPC){
-			return mysql_real_escape_string($_string);
-		}
 
-		return $_string;
-		
-	}
-	
 
 	/**
 	 * 判断登录状态

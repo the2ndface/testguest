@@ -19,7 +19,7 @@ if ($_GET['action'] == 'modify') {
     _check_code($_POST['code'], $_SESSION['code']);
     //为了防止伪造COOKIES，要对比一下唯一标识符uniqid
     if(!!$_rows=_fetch_array("SELECT tg_uniqid FROM tg_user WHERE tg_username='{$_COOKIE['username']}' LIMIT 1")){
-        include ROOT_PATH.'includes/register.func.php';
+        include ROOT_PATH.'includes/check.func.php';
         //对比uniqid
         _uniqid($_rows['tg_uniqid'],$_COOKIE['uniqid']);        
         //创建一个空数据，用来存放提交过来的合法数据

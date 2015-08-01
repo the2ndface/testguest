@@ -26,7 +26,7 @@
  		//为了防止恶意注册和跨站攻击
  		_check_code($_POST['code'], $_SESSION['code']);
 		
- 		include ROOT_PATH.'includes/register.func.php';
+ 		include ROOT_PATH.'includes/check.func.php';
  		//创建一个空数据，用来存放提交过来的合法数据
  		$_clean = array();
  		//可以通过唯一标识符来防止恶意注册和跨站攻击
