@@ -107,7 +107,7 @@
         <form method="post" action="?action=write" name="submit">
             <input type="hidden" name="touser" value="<?php echo $_html['touser'];?>" />
             <dl>
-                <dd><input type="text" value="TO:<?php echo $_html['touser'];?>" class="text"></input></dd>
+                <dd><input type="text" readonly="readonly" value="TO:<?php echo $_html['touser'];?>" class="text"></input></dd>
                 <dd><textarea name="content"></textarea></dd>
                 <dd>验 证 码：<input type="text" name="code" class="text yzm"/> <img src="code.php" id="code" /><input type="submit" name="sign" class="submit" value="发送"/></dd>
             </dl>

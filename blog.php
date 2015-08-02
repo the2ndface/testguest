@@ -54,8 +54,8 @@
 	<dl>
 	   <dd class='user'><?php echo $_html['username']?>(<?php echo $_html['sex']?>)</dd>
 	   <dt> <img src="<?php echo $_html['face']?>" /></dt>
-	   <dd class='message'><a href="###" name="message" title="<?php echo $_html['id']?>">发消息</a></dd>
-	   <dd class='frenid'>加为好友</dd>
+	   <dd class='message'><a href="javascript:;" name="message" title="<?php echo $_html['id']?>">发消息</a></dd>
+	   <dd class='frenid'><a href="javascript:;" name="friend" title="<?php echo $_html['id']?>">加为好友</a></dd>
 	   <dd class='guest'>写留言</dd>
 	   <dd class='flower'>给他送花</dd>
 	</dl>
