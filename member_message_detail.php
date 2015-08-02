@@ -17,9 +17,46 @@
     if(!isset($_COOKIE['username'])){
         _alert_back('请先登录');
     }
+    
+    //删除单条短信
+    if($_GET['action']=='delete' && isset($_GET['id'])){
+        //验证短信的合法性
+        if(!!$_rows=_fetch_array("SELECT 
+                                      tg_id
+                               FROM   
+                                      tg_message
+                              WHERE 
+                                      tg_id='{$_GET['id']}'
+                                
+                            ")){
+                            
+            //危险操作，为了防止cookies伪造，还要比对一下唯一标识符uniqid()
+            if(!!$_rows=_fetch_array("SELECT tg_uniqid FROM tg_user WHERE tg_username='{$_COOKIE['username']}' LIMIT 1")){
+                include ROOT_PATH.'includes/check.func.php';
+                //对比uniqid
+                _uniqid($_rows['tg_uniqid'],$_COOKIE['uniqid']);
+                //删除短信
+                _query("DELETE FROM tg_message WHERE tg_id='{$_GET['id']}' LIMIT 1 ");
+                //验证是否删除成功
+                if (_affected_rows() == 1) {
+                    _close();
+                    _location('短信删除成功','member_message.php');
+                } else {
+                    _close();
+                    _alert_back('短信删除失败');
+                }
+            
+            }
+            
+        }else{
+            _alert_back('此短信不存在!');
+        }
+    }
+    
+    //获取短信内容
     if(isset($_GET['id'])){
         $_rows=_fetch_array("SELECT 
-                                      tg_fromuser,tg_content,tg_date
+                                      tg_id,tg_fromuser,tg_content,tg_date
                                FROM   
                                       tg_message
                               WHERE 
@@ -28,6 +65,7 @@
                             ");
         if($_rows){
             $_html = array();
+            $_html['id'] = $_rows['tg_id'];
             $_html['fromuser']=$_rows['tg_fromuser'];
             $_html['content']=$_rows['tg_content'];
             $_html['date']=$_rows['tg_date'];
@@ -48,6 +86,7 @@
 <?php 
 	require 'includes/title.inc.php';
 ?>
+<script type="text/javascript" src="js/member_message_detail.js"></script>
 </head>
 <body>
     <?php 
@@ -63,7 +102,7 @@
             <dd>发 件 人：<?php echo $_html['fromuser']?></dd>
             <dd>短信内容：<strong><?php echo $_html['content']?></strong></dd>
             <dd>发送时间：<?php echo $_html['date']?></dd>
-            <dd class="button" ><input type="button" value="返回列表" onclick="javascript:history.back();" /><input type="button" value="删除短信" /></dd>
+            <dd class="button" ><input type="button" value="返回列表" id="return" /><input type="button" value="删除短信"  id="delete" name="<?php echo $_html['id']?>"/></dd>
         </dl>
     
     </div>
