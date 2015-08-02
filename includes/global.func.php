@@ -249,7 +249,7 @@
 	            echo '<li><a href="'.SCRIPT.'.php">首页</a> | </li>';
 	            echo '<li><a href="'.SCRIPT.'.php?page='.($_page-1).'">上一页</a> | </li>';
 	        }
-	        if($page == $_pageabsolute){
+	        if($_page == $_pageabsolute){
 	            echo '<li>下一页 | </li>';
 	            echo '<li>尾页</li>';
 	        }else{
