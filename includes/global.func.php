@@ -241,7 +241,7 @@
 	        echo "<div id='page_text'>";
 	        echo '<ul>';
 	        echo '<li>'.$_page.'/'.$_pageabsolute.'页 | </li>';
-	        echo '<li>共有<strong>'.$_num.'</strong>位博友 | </li>';
+	        echo '<li>共有<strong>'.$_num.'</strong>条数据 | </li>';
 	        if($_page ==1){
 	            echo '<li>首页 | </li>';
 	            echo '<li>上一页 | </li>';

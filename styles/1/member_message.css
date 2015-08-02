@@ -1,10 +1,11 @@
 @CHARSET "UTF-8";
 
 #member #member_main table{
-	margin:15px auto;
+	margin:10px auto;
 	background:#ccc;
 	width:90%;
 	text-align:center;
+	margin-bottom:0px;
 }
 
 #member #member_main table th,td{
