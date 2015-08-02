@@ -53,7 +53,7 @@
 
     //从数据库取出短信结果集
     $_result=_query("SELECT
-                            tg_id,tg_fromuser,tg_content,tg_date
+                            tg_id,tg_fromuser,tg_content,tg_date,tg_state
                        FROM
                             tg_message
                       WHERE
@@ -87,7 +87,7 @@
         <h2>短信管理中心</h2>
         <form method="post" action="?action=delete">
             <table>
-                <tr><th>发件人</th><th>短信内容</th><th>发信时间</th><th>操作</th></tr>
+                <tr><th>发件人</th><th>短信内容</th><th>发信时间</th><th>状态</th><th>操作</th></tr>
                 <?php 
                     while(!!$_rows=_fetch_array_list($_result)){
                         $_html = array();
@@ -96,13 +96,20 @@
                         $_html['content'] = $_rows['tg_content'];
                         $_html['date'] = $_rows['tg_date'];
                         $_html = _html($_html);
+                        if(empty($_rows['tg_state'])){
+                            $_html['state'] = '<img src="images/noread.gif" alt="未读" title="未读"/>';
+                            $_html['content_html'] = '<strong>'._title($_html['content']).'</strong>';
+                        }else{
+                            $_html['state'] = '<img src="images/read.gif" alt="已读" title="已读"//>';
+                            $_html['content_html'] = _title($_html['content']);
+                        }
                 ?>
-                <tr><td><?php echo $_html['fromuser']?></td><td><a href="member_message_detail.php?id=<?php echo $_html['id'];?>" title="<?php echo $_html['content'];?>"><?php echo _title($_html['content'])?></a></td><td><?php echo $_html['date']?></td><td><input type="checkbox" name="ids[]" value="<?php echo $_html['id']?>"/></td></tr>
+                <tr><td><?php echo $_html['fromuser']?></td><td><a href="member_message_detail.php?id=<?php echo $_html['id'];?>" title="<?php echo $_html['content'];?>"><?php echo $_html['content_html']?></a></td><td><?php echo $_html['date']?></td><td><?php echo $_html['state']?></td><td><input type="checkbox" name="ids[]" value="<?php echo $_html['id']?>"/></td></tr>
                 <?php 
                     }
                     _free_result($_result);
                 ?>
-                <tr><td colspan="4"><label for="all">全选<input type="checkbox" name="chkall" id="all" /></label><input type="submit" value="批量删除"/></input></td></tr>
+                <tr><td colspan="5"><label for="all">全选<input type="checkbox" name="chkall" id="all" /></label><input type="submit" value="批量删除"/></input></td></tr>
             </table>
         </form>
         <?php _paging(2);?>

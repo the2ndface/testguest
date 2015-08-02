@@ -56,14 +56,21 @@
     //获取短信内容
     if(isset($_GET['id'])){
         $_rows=_fetch_array("SELECT 
-                                      tg_id,tg_fromuser,tg_content,tg_date
+                                      tg_id,tg_fromuser,tg_content,tg_date,tg_state
                                FROM   
                                       tg_message
                               WHERE 
                                       tg_id='{$_GET['id']}'
+                              LIMIT   1
                                 
                             ");
         if($_rows){
+            if(empty($_rows['tg_state'])){
+                _query("UPDATE tg_message SET tg_state='1' WHERE  tg_id='{$_GET['id']}' LIMIT 1");
+                if(!_affected_rows()){
+                    _alert_back('数据异常');
+                }
+            }
             $_html = array();
             $_html['id'] = $_rows['tg_id'];
             $_html['fromuser']=$_rows['tg_fromuser'];
