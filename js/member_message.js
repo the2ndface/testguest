@@ -10,7 +10,7 @@ window.onload =function(){
 	};
 	
 	fm.onsubmit = function(){
-		if(confirm()){
+		if(confirm('确定删除所选的数据记录吗？')){
 			return true;
 		}else{
 			return false;

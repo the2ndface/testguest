@@ -18,6 +18,55 @@
     if(!isset($_COOKIE['username'])){
         _alert_back('请先登录');
     }
+    //验证好友
+    if($_GET['action']=='check' && isset($_GET['id'])){
+        //危险操作，为了防止cookies伪造，还要比对一下唯一标识符uniqid()
+        if(!!$_rows=_fetch_array("SELECT tg_uniqid FROM tg_user WHERE tg_username='{$_COOKIE['username']}' LIMIT 1")){
+            //对比uniqid
+            _uniqid($_rows['tg_uniqid'],$_COOKIE['uniqid']);
+            //通过验证，更新数据库tg_state
+            _query("UPDATE tg_friend SET tg_state=1 WHERE tg_id='{$_GET['id']}'");
+            //判断是否成功
+            if(_affected_rows()==1){
+                _close();
+                _location('好友验证成功','member_friend.php');
+            }else{
+                _close();
+                _alert_back('好友验证失败！');
+            }
+        }else{
+            _alert_back('非法登录！');
+        }
+    }
+    
+    
+    //批量删除好友
+    if($_GET['action']=='delete' && isset($_POST['ids'])){
+        $_clean = array();
+        $_clean['ids']=_mysql_string(implode(',', $_POST['ids']));
+    
+        //危险操作，为了防止cookies伪造，还要比对一下唯一标识符uniqid()
+        if(!!$_rows=_fetch_array("SELECT tg_uniqid FROM tg_user WHERE tg_username='{$_COOKIE['username']}' LIMIT 1")){
+            //对比uniqid
+            _uniqid($_rows['tg_uniqid'],$_COOKIE['uniqid']);
+    
+            //批量删除
+            _query("DELETE FROM tg_friend WHERE tg_id IN ({$_clean['ids']}) ");
+    
+            //判断是否成功
+            if(_affected_rows()){
+                _close();
+                _location('好友删除成功','member_friend.php');
+            }else{
+                _close();
+                _alert_back('好友删除失败！');
+            }
+        }else{
+            _alert_back('非法登录');
+        }
+    
+    }
+    
     
     //调用分页函数
     global $_pagenum,$_pagesize;
@@ -70,17 +119,17 @@
                         if($_html['touser']==$_COOKIE['username']){
                             $_html['friend']=$_html['fromuser'];
                             if(empty($_html['state'])){
-                                $_html['state_html']='我未验证';
+                                $_html['state_html']='<a href="?action=check&id='.$_html['id'].'" style="color:red;">我未验证</a>';
                             }else{
-                                $_html['state_html']='通过';
+                                $_html['state_html']='<span style="color:green;">通过</span>';
                             }
                             
                         }elseif($_html['fromuser']==$_COOKIE['username']){
                             $_html['friend']=$_html['touser'];
                             if(empty($_html['state'])){
-                                $_html['state_html']='对方未验证';
+                                $_html['state_html']='<span style="color:blue;">对方未验证</span>';
                             }else{
-                                $_html['state_html']='通过';
+                                $_html['state_html']='<span style="color:green;">通过</span>';
                             }
                         }
                        
@@ -90,7 +139,7 @@
                     }
                     _free_result($_result);
                 ?>
-                <tr><td colspan="5"><label for="all">全选<input type="checkbox" name="chkall" id="all" /></label><input type="submit" value="批量删除"/></input></td></tr>
+                <tr><td colspan="5"><label for="all">全选<input type="checkbox" name="chkall" id="all" /></label><input type="submit" value="批量删除"/></td></tr>
             </table>
         </form>
         <?php _paging(2);?>
