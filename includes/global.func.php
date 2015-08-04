@@ -130,6 +130,43 @@
     }
     
     /**
+     * _set_xml() 创建用户XML文件
+     * @param unknown $_xmlfile 文件名
+     * @param unknown $_clean   传入的用户信息
+     */
+    function _set_xml($_xmlfile,$_clean){
+        $_fp = @fopen($_xmlfile, 'w');
+        if(!$_fp){
+            exit('系统错误，文件不存在！');
+        }
+        flock($_fp, LOCK_EX);
+        
+        $_string="<?xml version=\"1.0\" encoding=\"utf-8\">\r\n";
+        fwrite($_fp, $_string,strlen($_string));
+        $_string="<vip>\r\n";
+        fwrite($_fp, $_string,strlen($_string));
+        $_string="\t<id>{$_clean['id']}</id>\r\n";
+        fwrite($_fp, $_string,strlen($_string));
+        $_string="\t<username>{$_clean['username']}</username>\r\n";
+        fwrite($_fp, $_string,strlen($_string));
+        $_string="\t<sex>{$_clean['sex']}</sex>\r\n";
+        fwrite($_fp, $_string,strlen($_string));
+        $_string="\t<face>{$_clean['face']}</face>\r\n";
+        fwrite($_fp, $_string,strlen($_string));
+        $_string="\t<email>{$_clean['email']}</email>\r\n";
+        fwrite($_fp, $_string,strlen($_string));
+        $_string="\t<url>{$_clean['url']}</url>\r\n";
+        fwrite($_fp, $_string,strlen($_string));
+        $_string="</vip>\r\n";
+        fwrite($_fp, $_string,strlen($_string));
+        
+        flock($_fp, LOCK_UN);
+        
+        fclose($_fp);
+    }
+    
+    
+    /**
      * _title($_string) 显示内容大于14字时，进行截取，只显示前14字
      * @param unknown $_string
      * @return string

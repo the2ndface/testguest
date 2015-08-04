@@ -90,13 +90,16 @@
  					);
 		if (_affected_rows()==1){
 			//关闭数据库
+			$_clean['id'] = _insert_id();
 			_close();
-			
+			_session_destroy();
 			//跳转
+			_set_xml('new.xml', $_clean);
 			_location('恭喜您，注册成功，浏览器将跳转到激活页！','active.php?active='.$_clean[active]);
 		}else{
 			//关闭数据库
 			_close();
+			_session_destroy();
 			_location('对不起，注册失败，请重新注册','register.php');
 		}
 		
@@ -126,7 +129,7 @@
 	<div id="register">
 		<h2>会员注册</h2>
 		<form action="register.php?action=register" name="register" method="post">
-			<input type="hidden" name="uniqid" value="<?php echo $_uniqid; ?>">
+			<input type="hidden" name="uniqid" value="<?php echo $_uniqid; ?>"  />
 			<dl>
 				<dt>请认真填写以下内容</dt>
 				<dd>用 户 名：<input type="text" name="username" class="text"/>*（必填，至少两位）</dd>

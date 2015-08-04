@@ -22,6 +22,7 @@
 	<?php 
 		require 'includes/title.inc.php';
 	?>
+<script type="text/javascript" src="js/blog.js"></script>
 </head>
 <body>
 	<?php 
@@ -32,7 +33,17 @@
 </div>
 
 <div id='user'>
-	<h2>用户列表</h2>
+	<h2>新进用户</h2>
+	<dl>
+	   <dd class='user'>炎日</dd>
+	   <dt><img src="face/m01.gif" /></dt>
+	   <dd class='message'><a href="javascript:;" name="message" title="<?php echo $_html['id']?>">发消息</a></dd>
+	   <dd class='frenid'><a href="javascript:;" name="friend" title="<?php echo $_html['id']?>">加为好友</a></dd>
+	   <dd class='guest'>写留言</dd>
+	   <dd class='flower'><a href="javascript:;" name="flower" title="<?php echo $_html['id']?>">给他送花</a></dd>
+	   <dd class='email'>邮箱：yc60@sina.com.cn</dd>
+	   <dd class='url'>网址：www.yc60.com.cn</dd>
+	</dl>
 </div>
 
 <div id='pics'>
