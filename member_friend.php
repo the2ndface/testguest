@@ -106,8 +106,8 @@
             <table>
                 <tr><th>好友</th><th>请求内容</th><th>发信时间</th><th>状态</th><th>操作</th></tr>
                 <?php 
+                    $_html = array();
                     while(!!$_rows=_fetch_array_list($_result)){
-                        $_html = array();
                         $_html['id'] = $_rows['tg_id'];
                         $_html['touser'] = $_rows['tg_touser'];
                         $_html['fromuser'] = $_rows['tg_fromuser'];
