@@ -129,6 +129,43 @@
         }
     }
     
+    
+    
+    /**
+     * _get_xml()读取XML数据
+     * @param unknown $_xmlfile
+     * @return multitype:NULL
+     */
+    function _get_xml($_xmlfile){
+        $_html = array();
+        if(file_exists($_xmlfile)){
+            $_xml = file_get_contents($_xmlfile);
+            preg_match_all('|<vip>(.*)<\/vip>|s',$_xml,$_dom);
+            foreach($_dom[1] as $_value){
+                preg_match_all('|<id>(.*)<\/id>|s',$_value,$_id);
+                preg_match_all('|<username>(.*)<\/username>|s',$_value,$_username);
+                preg_match_all('|<sex>(.*)<\/sex>|s',$_value,$_sex);
+                preg_match_all('|<face>(.*)<\/face>|s',$_value,$_face);
+                preg_match_all('|<email>(.*)<\/email>|s',$_value,$_email);
+                preg_match_all('|<url>(.*)<\/url>|s',$_value,$_url);
+            }
+            $_html['id'] = $_id[1][0];
+            $_html['username'] = $_username[1][0];
+            $_html['sex'] = $_sex[1][0];
+            $_html['face'] = $_face[1][0];
+            $_html['email'] = $_email[1][0];
+            $_html['url'] = $_url[1][0];
+                
+        }else{
+            echo '文件不存在';
+        }
+        
+        return $_html;
+    }
+
+    
+    
+    
     /**
      * _set_xml() 创建用户XML文件
      * @param unknown $_xmlfile 文件名
@@ -141,7 +178,7 @@
         }
         flock($_fp, LOCK_EX);
         
-        $_string="<?xml version=\"1.0\" encoding=\"utf-8\">\r\n";
+        $_string="<?xml version=\"1.0\" encoding=\"utf-8\" ?>\r\n";
         fwrite($_fp, $_string,strlen($_string));
         $_string="<vip>\r\n";
         fwrite($_fp, $_string,strlen($_string));

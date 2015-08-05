@@ -39,7 +39,7 @@
 	 	$_clean['question'] = _check_question($_POST['question'], 2, 40);
  		$_clean['answer'] = _check_answer($_POST['question'], $_POST['answer'],2,40);
  		$_clean['sex'] = _check_sex($_POST['sex']);
- 		$_clean['facetext'] = _check_face($_POST['facetext']);
+ 		$_clean['face'] = _check_face($_POST['face']);
  		$_clean['email'] = _check_email($_POST['email'],6,40);
 		$_clean['qq']	= _check_qq($_POST['qq']);
 		$_clean['url'] = _check_url($_POST['url'],40);
@@ -79,7 +79,7 @@
  								  			'{$_clean['question']}',
  								  			'{$_clean['answer']}',
  								  			'{$_clean['sex']}',
- 								  			'{$_clean['facetext']}',
+ 								  			'{$_clean['face']}',
  								  			'{$_clean['email']}',
  								  			'{$_clean['qq']}',
  								  			'{$_clean['url']}',
@@ -139,7 +139,7 @@
 				<dd>密码回答：<input type="text" name="answer" class="text"/>*（必填，至少两位）</dd>
 				<dd>姓　　别：<input type="radio" name="sex" value="男" checked="checked" />男
 						   <input type="radio" name="sex" value="女" />女</dd>
-				<dd class="face"><input type="hidden" name="facetext" value="face/m01.gif" /><img src="face/m01.gif" id="faceimg" /></dd>
+				<dd class="face"><input type="hidden" name="face" value="face/m01.gif" /><img src="face/m01.gif" id="faceimg" /></dd>
 				<dd>电子邮件：<input type="text" name="email" class="text"/>*（必填，用于激活）</dd>
 				<dd>　 Q Q　：<input type="text" name="qq" class="text"/></dd>
 				<dd>个人网站：<input type="text" name="url" value="http://" class="text"/></dd>
