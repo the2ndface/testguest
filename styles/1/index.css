@@ -6,6 +6,89 @@
 	border:2px solid #ccc;
 	float:right;
 }
+
+#list a.post {
+	display:block;
+	height:33px;
+	width:114px;
+	background:url(../../images/aricle.jpg) no-repeat;
+	text-indent:-9999px;
+	margin:10px 10px 0 auto;
+}
+
+#list ul.aricle {
+	padding: 10px 50px;
+}
+
+#list ul.aricle li {
+	height:30px;
+	line-height:30px;
+	border-bottom:1px dashed #333;
+	padding:0 0 0 25px;
+}
+
+#list ul.aricle li em {
+	float:right;
+	font-style:normal;
+}
+
+#list ul.aricle li a {
+	color:#333;
+}
+
+#list ul.aricle li a:hover{
+	color:#f60;
+} 
+
+#list ul.aricle li.icon1 {
+	background:url(../../images/icon1.gif) no-repeat left center;
+}
+#list ul.aricle li.icon2 {
+	background:url(../../images/icon2.gif) no-repeat left center;
+}
+#list ul.aricle li.icon3 {
+	background:url(../../images/icon3.gif) no-repeat left center;
+}
+#list ul.aricle li.icon4 {
+	background:url(../../images/icon4.gif) no-repeat left center;
+}
+#list ul.aricle li.icon5 {
+	background:url(../../images/icon5.gif) no-repeat left center;
+}
+#list ul.aricle li.icon6 {
+	background:url(../../images/icon6.gif) no-repeat left center;
+}
+#list ul.aricle li.icon7 {
+	background:url(../../images/icon7.gif) no-repeat left center;
+}
+#list ul.aricle li.icon8 {
+	background:url(../../images/icon8.gif) no-repeat left center;
+}
+#list ul.aricle li.icon9 {
+	background:url(../../images/icon9.gif) no-repeat left center;
+}
+#list ul.aricle li.icon10 {
+	background:url(../../images/icon10.gif) no-repeat left center;
+}
+#list ul.aricle li.icon11 {
+	background:url(../../images/icon11.gif) no-repeat left center;
+}
+#list ul.aricle li.icon12 {
+	background:url(../../images/icon12.gif) no-repeat left center;
+}
+#list ul.aricle li.icon13 {
+	background:url(../../images/icon13.gif) no-repeat left center;
+}
+#list ul.aricle li.icon14 {
+	background:url(../../images/icon14.gif) no-repeat left center;
+}
+#list ul.aricle li.icon15 {
+	background:url(../../images/icon15.gif) no-repeat left center;
+}
+#list ul.aricle li.icon16 {
+	background:url(../../images/icon16.gif) no-repeat left center;
+}
+
 #user{
 	width:340px;
 	height:250px;
