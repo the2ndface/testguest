@@ -56,7 +56,7 @@
 				</dd>
 				
 				<dd>标　　题：<input type="text" name="username" class="text"/>*（必填，2-40位）</dd>
-				<dd>贴　　图：　Q图系列[1]　 Q图系列[2]　 Q图系列[3]</dd>
+				<dd id="q">贴　　图：　<a href="javascript:;">Q图系列[1]</a>　<a href="javascript:;"> Q图系列[2]</a>　 <a href="javascript:;">Q图系列[3]</a></dd>
 				<dd>
 				    <div id="ubb">
                         <img src="images/fontsize.gif" title="字体大小" alt="字体大小" />

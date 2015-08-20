@@ -124,3 +124,8 @@
 	top:8px;
 	cursor:pointer;
 }
+
+#post dl dd#q a {
+	color:#333;
+	text-decoration:none;
+}

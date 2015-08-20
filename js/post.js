@@ -6,8 +6,25 @@ window.onload = function () {
 	var font = document.getElementById('font');
 	var color = document.getElementById('color');
 	var html = document.getElementsByTagName('html')[0];
+	var q = document.getElementById('q');
+	var qa = q.getElementsByTagName('a');
 	
+	qa[0].onclick = function(){
+		window.open('q.php?num=48&path=qpic/1/','q','width=400,height=400,scrollbars=1');
+	};
+	qa[1].onclick = function(){
+		window.open('q.php?num=10&path=qpic/2/','q','width=400,height=400,scrollbars=1');
+	};
+	qa[2].onclick = function(){
+		window.open('q.php?num=39&path=qpic/3/','q','width=400,height=400,scrollbars=1');
+	};
 	
+	/**
+	 * 点击页面其它部分隐藏内容
+	 * ubbimg[0].onclick
+	 * ubbimg[7].onclick
+	 * 显示相应的选择页面
+	 */
 	html.onmouseup = function () {
 		font.style.display = 'none';
 		color.style.display = 'none';
