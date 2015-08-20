@@ -53,10 +53,35 @@
 				            }
 				        }
 				    ?>
-				
 				</dd>
+				
 				<dd>标　　题：<input type="text" name="username" class="text"/>*（必填，2-40位）</dd>
-				<dd><textarea name="content"></textarea></dd>
+				<dd>
+				    <div id="ubb">
+                        <img src="images/fontsize.gif" title="字体大小" alt="字体大小" />
+    					<img src="images/space.gif" title="线条" alt="线条" />
+    					<img src="images/bold.gif" title="粗体" />
+    					<img src="images/italic.gif" title="斜体" />
+    					<img src="images/underline.gif" title="下划线" />
+    					<img src="images/strikethrough.gif" title="删除线" />
+    					<img src="images/space.gif" />
+    					<img src="images/color.gif" title="颜色" />
+    					<img src="images/url.gif" title="超链接" />
+    					<img src="images/email.gif" title="邮件" />
+    					<img src="images/image.gif" title="图片" />
+    					<img src="images/swf.gif" title="flash" />
+    					<img src="images/movie.gif" title="影片" />
+    					<img src="images/space.gif" />
+    					<img src="images/left.gif" title="左区域" />
+    					<img src="images/center.gif" title="中区域" />
+    					<img src="images/right.gif" title="右区域" />
+    					<img src="images/space.gif" />
+    					<img src="images/increase.gif" title="扩大输入区" />
+    					<img src="images/decrease.gif" title="缩小输入区" />
+    					<img src="images/help.gif" />
+				    </div>
+				    <textarea name="content" rows="14"></textarea>
+				</dd>
 				<dd>验 证 码：<input type="text" name="code" class="text yzm"/> <img src="code.php" id="code" /> <input type="submit" name="sign" class="submit" value="发表帖子"/></dd>
 			</dl>
 		</form>

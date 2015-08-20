@@ -34,12 +34,29 @@
 	padding:0 2px 0 0;
 }
 
-#post dl dd textarea {
+#post dl dd #ubb {
 	width:410px;
-	height:200px;
+	height:26px;
+	background:url(../../images/bgMenubar.gif);
+	border:1px dashed #333;
+	border-bottom:1px solid #666;
+}
+
+#post dl dd #ubb img {
+	display:block;
+	float:left;
+	margin:5px 0 0 6px;
+}
+
+#post dl dd textarea {
+	width:400px;
 	border:1px dashed #333;
 	background:#fff;
+	border-top:none;
+	padding:5px;
 }
+
+
 
 #post dl dd input.text{
 	width:250px;
