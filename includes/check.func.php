@@ -274,6 +274,32 @@
 	    return $_string;
 	}
 	
+	/**
+	 * _check_post_title 检查标题长度
+	 * @param string $_string 标题内容
+	 * @param int $_min_num   最小长度
+	 * @param int $_max_num   最大长度
+	 * @return &_string 
+	 */
+	function _check_post_title($_string,$_min_num,$_max_num){
+	    if(mb_strlen($_string,'utf-8') < $_min_num || mb_strlen($_string,'utf-8') > $_max_num){
+	        _alert_back('标题不得小于'.$_min_num.'位或大于'.$_max_num.'位');
+	    }
+	    return $_string;
+	}
+	
+	/**
+	 * _check_post_content 检查帖子内容长度
+	 * @param string $_string  
+	 * @param int $_min_num
+	 * @return string
+	 */
+	function _check_post_content($_string,$_min_num){
+	    if(mb_strlen($_string,'utf-8') < $_min_num ){
+	        _alert_back('帖子内容不得小于'.$_min_num.'位');
+	    }
+	    return $_string;
+	}
 	
 	
 	
