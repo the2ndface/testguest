@@ -19,7 +19,7 @@
 #article #subject dl{
 	width:170px;
 	margin:0 auto;
-	padding:10px 0 0 45px;
+	padding:10px 0 0 35px;
 	float:left;
 }
 
@@ -48,7 +48,7 @@
 }
 
 #article #subject dl dd.email,#article #subject dl dd.url {
-	width:170px;
+	width:190px;
 	padding:2px 0 0 0;
 	text-align:left;
 	text-indent:5px;
@@ -64,7 +64,7 @@
 	background:url(../../images/x1.gif) no-repeat 5px 35%;
 }
 
-#article #subject dl dd.frenid{
+#article #subject dl dd.friend{
 	background:url(../../images/x2.gif) no-repeat left 35%;
 }
 #article #subject dl dd.guest{
@@ -77,8 +77,6 @@
 #article #subject div.content {
 	float:right;
 	width:680px;
-	height:30px;
-	line-height:30px;
 	padding:5px 20px 0 0;
 }
 
@@ -87,6 +85,8 @@
 	padding:0 0 0 20px;
 	border-bottom:1px dashed #999;
 	color:#666;
+	height:30px;
+	line-height:30px;
 }
 
 #article #subject div.content .user span {
@@ -108,6 +108,16 @@
 #article #subject div.content .detail {
 	line-height:200%;
 	font-size:14px;
+}
+
+#article #subject div.content .detail a{
+	text-decoration:none;
+	color:blue;
+}
+
+#article #subject div.content .detail a:hover{
+	text-decoration:underline;
+	color:#f60;
 }
 
 #article p.line{

@@ -21,6 +21,9 @@
  	                                  FROM tg_article
  	                                 WHERE tg_id='{$_GET['id']}'
  	                             ")){
+ 	                             
+ 	        //累积阅读量
+ 	        _query("UPDATE tg_article SET tg_readcount=tg_readcount+1 WHERE tg_id='{$_GET['id']}' ");
  	        $_html = array();
  	        $_html['username'] = $_rows['tg_username'];
  	        $_html['title'] = $_rows['tg_title'];
@@ -29,6 +32,7 @@
  	        $_html['readcount'] = $_rows['tg_readcount'];
  	        $_html['commendcount'] = $_rows['tg_commendcount'];
  	        $_html['date'] = $_rows['tg_date'];
+ 	        
  	        
  	        //读取发帖用户信息
  	        if(!!$_rows=_fetch_array(" SELECT tg_id,tg_sex,tg_face,tg_email,tg_url
@@ -88,7 +92,7 @@
 			</div>
 			<h3>主题：<?php echo $_html['title']?> <img src="images/icon<?php echo $_html['type']?>.gif" alt="icon" /></h3>
 			<div class="detail">
-				<?php echo $_html['content']?>
+				<?php echo _ubb($_html['content'])?>
 			</div>
 			<div class="read">
 				阅读量：(<?php echo $_html['readcount']?>) 评论量：(<?php echo $_html['commendcount']?>)

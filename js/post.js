@@ -70,12 +70,14 @@ window.onload = function () {
 	};
 	ubbimg[10].onclick = function () {
 		var img = prompt('请输入图片地址：','');
-		content('[img]'+img+'[/img]');
+		if(img){
+			content('[img]'+img+'[/img]');
+		}
 	};
 	ubbimg[11].onclick = function () {
 		var flash = prompt('请输入视频flash：','http://');
 		if (flash) {
-			if (/^https?:\/\/(\w+\.)?[\w\-\.]+(\.\w+)+$/.test(flash)) {
+			if (/^https?:\/\/(\w+\.)?[\w\-\.]+(\.\w+)+/.test(flash)) {
 				content('[flash]'+flash+'[/flash]');
 			} else {
 				alert('视频不合法！');
