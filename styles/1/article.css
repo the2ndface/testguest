@@ -117,3 +117,8 @@
 	height:10px;
 	margin:10px auto;
 }
+
+#article #subject div.content div.read {
+	font-size:14px;
+	color:#666;
+}
