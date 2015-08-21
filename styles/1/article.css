@@ -1,0 +1,119 @@
+@CHARSET "UTF-8";
+
+#article {
+	width:auto;
+	min-height:600px;
+	border:2px solid #ccc;
+	font-size:12px;
+}
+
+#article h2{
+	text-indent:0;
+	text-align:center;
+}
+
+#article #subject {
+
+}
+
+#article #subject dl{
+	width:170px;
+	margin:0 auto;
+	padding:10px 0 0 45px;
+	float:left;
+}
+
+#article #subject dl dt{
+	margin:0 0 5px 0;
+	width:170px;
+	
+}
+
+#article #subject dl dt img{
+	margin:0 auto;
+	display:block;
+}
+
+#article #subject dl dd{
+	text-align:center;
+	float:left;
+	width:85px;
+	height:20px;
+	line-height:20px;
+}
+
+#article #subject dl dd a{
+	text-decoration:none;
+	color:#333;
+}
+
+#article #subject dl dd.email,#article #subject dl dd.url {
+	width:170px;
+	padding:2px 0 0 0;
+	text-align:left;
+	text-indent:5px;
+}
+
+#article #subject dl dd.user{
+	width:170px;
+	float:none;
+	color:#f60;
+}
+
+#article #subject dl dd.message{
+	background:url(../../images/x1.gif) no-repeat 5px 35%;
+}
+
+#article #subject dl dd.frenid{
+	background:url(../../images/x2.gif) no-repeat left 35%;
+}
+#article #subject dl dd.guest{
+	background:url(../../images/x3.gif) no-repeat 5px 35%;
+}
+#article #subject dl dd.flower{
+	background:url(../../images/x4.gif) no-repeat left 35%;
+}
+
+#article #subject div.content {
+	float:right;
+	width:680px;
+	height:30px;
+	line-height:30px;
+	padding:5px 20px 0 0;
+}
+
+#article #subject div.content .user{
+	background:url(../../images/member.gif) no-repeat left center;
+	padding:0 0 0 20px;
+	border-bottom:1px dashed #999;
+	color:#666;
+}
+
+#article #subject div.content .user span {
+	float:right;
+	color:#06f;
+}
+
+#article #subject div.content h3 {
+	font-size:14px;
+	height:40px;
+	line-height:40px;
+}
+
+#article #subject div.content h3 img {
+	position:relative;
+	top:2px;
+}
+
+#article #subject div.content .detail {
+	line-height:200%;
+	font-size:14px;
+}
+
+#article p.line{
+	border-bottom:1px dashed #333;
+	width:95%;
+	clear:both;
+	height:10px;
+	margin:10px auto;
+}
