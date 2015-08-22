@@ -20,10 +20,11 @@
     _page("SELECT tg_id FROM tg_article",10);
     //读取数据
     $_result = _query("SELECT tg_id,tg_title,tg_type,tg_readcount,tg_commendcount
-                               FROM tg_article
-                           ORDER BY tg_date DESC
-                              LIMIT $_pagenum,$_pagesize
-                            ");
+                         FROM tg_article
+                        WHERE tg_reid = 0
+                     ORDER BY tg_date DESC
+                        LIMIT $_pagenum,$_pagesize
+                     ");
  	
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">

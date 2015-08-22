@@ -120,12 +120,119 @@
 	color:#f60;
 }
 
+#article div.re dl{
+	width:170px;
+	margin:0 auto;
+	padding:10px 0 0 35px;
+	float:left;
+}
+
+#article div.re dl dt{
+	margin:0 0 5px 0;
+	width:170px;
+	
+}
+
+#article div.re dl dt img{
+	margin:0 auto;
+	display:block;
+}
+
+#article div.re dl dd{
+	text-align:center;
+	float:left;
+	width:85px;
+	height:20px;
+	line-height:20px;
+}
+
+#article div.re dl dd a{
+	text-decoration:none;
+	color:#333;
+}
+
+#article div.re dl dd.email,#article div.re dl dd.url {
+	width:190px;
+	padding:2px 0 0 0;
+	text-align:left;
+	text-indent:5px;
+}
+
+#article div.re dl dd.user{
+	width:170px;
+	float:none;
+	color:#f60;
+}
+
+#article div.re dl dd.message{
+	background:url(../../images/x1.gif) no-repeat 5px 35%;
+}
+
+#article div.re dl dd.friend{
+	background:url(../../images/x2.gif) no-repeat left 35%;
+}
+#article div.re dl dd.guest{
+	background:url(../../images/x3.gif) no-repeat 5px 35%;
+}
+#article div.re dl dd.flower{
+	background:url(../../images/x4.gif) no-repeat left 35%;
+}
+
+#article div.re div.content {
+	float:right;
+	width:680px;
+	padding:5px 20px 0 0;
+}
+
+#article div.re div.content .user{
+	background:url(../../images/member.gif) no-repeat left center;
+	padding:0 0 0 20px;
+	border-bottom:1px dashed #999;
+	color:#666;
+	height:30px;
+	line-height:30px;
+}
+
+#article div.re div.content .user span {
+	float:right;
+	color:#06f;
+}
+
+#article div.re div.content h3 {
+	font-size:14px;
+	height:40px;
+	line-height:40px;
+}
+
+#article div.re div.content h3 img {
+	position:relative;
+	top:2px;
+}
+
+#article div.re div.content .detail {
+	line-height:200%;
+	font-size:14px;
+}
+
+#article div.re div.content .detail a{
+	text-decoration:none;
+	color:blue;
+}
+
+#article div.re div.content .detail a:hover{
+	text-decoration:underline;
+	color:#f60;
+}
+
+
+
 #article p.line{
 	border-bottom:1px dashed #333;
 	width:95%;
 	clear:both;
 	height:10px;
 	margin:10px auto;
+
 }
 
 #article #subject div.content div.read {
