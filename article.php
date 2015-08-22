@@ -14,8 +14,12 @@
  	define('SCRIPT','article' );
  	//引入公共文件	
  	require dirname(__FILE__).'/includes/common.inc.php';
- 	
- 	//读出数据
+ 	//处理回帖
+ 	if($_GET['action']=='rearticle'){
+ 	    echo '处理回帖';
+ 	    exit;
+ 	}
+ 	//读出帖子数据
  	if(isset($_GET['id'])){
  	    if(!!$_rows=_fetch_array("SELECT tg_id,tg_username,tg_type,tg_title,tg_content,tg_readcount,tg_commendcount,tg_date
  	                                  FROM tg_article
@@ -67,6 +71,8 @@
 <?php 
 	require 'includes/title.inc.php';
 ?>
+<script type="text/javascript" src="js/code.js"></script>
+<script type="text/javascript" src="js/article.js"></script>
 </head>
 <body>
 	<?php 
@@ -100,7 +106,19 @@
 		</div>
 		</div>
 		<p class="line"></p>
-		1111111111
+		<?php if(isset($_COOKIE['username'])){?>
+		<form method="post" action="?action=rearticle">
+    		<dl>
+    		<dd>标　　题：<input type="text" name="title" class="text"/ value="RE:<?php echo $_html['title']?>">*（必填，2-40位）</dd>
+    				<dd id="q">贴　　图：　<a href="javascript:;">Q图系列[1]</a>　<a href="javascript:;"> Q图系列[2]</a>　 <a href="javascript:;">Q图系列[3]</a></dd>
+    				<dd>
+                        <?php include 'includes/ubb.inc.php';?>
+    				    <textarea name="content" rows="14"></textarea>
+    				</dd>
+    				<dd>验 证 码：<input type="text" name="code" class="text yzm"/> <img src="code.php" id="code" /> <input type="submit" name="sign" class="submit" value="发表帖子"/></dd>
+    		</dl>
+		</form>
+		<?php }?>
 	</div>
 	<?php 
 		require ROOT_PATH.'includes/footer.inc.php';
