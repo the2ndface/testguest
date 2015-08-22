@@ -221,9 +221,9 @@
      * @param unknown $_string
      * @return string
      */
-    function _title($_string){
-        if(mb_strlen($_string,'utf-8')>14){
-            $_string=mb_substr($_string, 0,14,'utf-8').'...';
+    function _title($_string,$_num){
+        if(mb_strlen($_string,'utf-8')>$_num){
+            $_string=mb_substr($_string, 0,$_num,'utf-8').'...';
         }
         return $_string;
     }
@@ -275,7 +275,7 @@
 	    //判断是否存在$_page
 	    if(isset($_GET['page'])){
 	        $_page = $_GET['page']	;
-	        if(empty($_page) || $_page<0 || !is_numeric($_page)){
+	        if(empty($_page) || $_page<=0 || !is_numeric($_page)){
 	            $_page = 1;
 	        }else{
 	            $_page = intval($_page);
@@ -345,6 +345,8 @@
 	        }
 	        echo '</ul>';
 	        echo '</div>';
+	    }else{
+	        _paging(2);
 	    }
 	    
 	    

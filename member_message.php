@@ -99,10 +99,10 @@
                         $_html = _html($_html);
                         if(empty($_rows['tg_state'])){
                             $_html['state'] = '<img src="images/noread.gif" alt="未读" title="未读"/>';
-                            $_html['content_html'] = '<strong>'._title($_html['content']).'</strong>';
+                            $_html['content_html'] = '<strong>'._title($_html['content'],14).'</strong>';
                         }else{
                             $_html['state'] = '<img src="images/read.gif" alt="已读" title="已读"//>';
-                            $_html['content_html'] = _title($_html['content']);
+                            $_html['content_html'] = _title($_html['content'],14);
                         }
                 ?>
                 <tr><td><?php echo $_html['fromuser']?></td><td><a href="member_message_detail.php?id=<?php echo $_html['id'];?>" title="<?php echo $_html['content'];?>"><?php echo $_html['content_html']?></a></td><td><?php echo $_html['date']?></td><td><?php echo $_html['state']?></td><td><input type="checkbox" name="ids[]" value="<?php echo $_html['id']?>"/></td></tr>

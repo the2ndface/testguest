@@ -97,7 +97,7 @@
                             
                        
                 ?>
-                <tr><td><?php echo $_html['fromuser']?></td><td><img src="images/x4.gif" /> x<?php echo $_html['flower'];?>朵</td><td title="<?php echo $_html['content'];?>"><?php echo _title($_html['content'])?></td><td><?php echo $_html['date']?></td><td><input type="checkbox" name="ids[]" value="<?php echo $_html['id']?>"/></td></tr>
+                <tr><td><?php echo $_html['fromuser']?></td><td><img src="images/x4.gif" /> x<?php echo $_html['flower'];?>朵</td><td title="<?php echo $_html['content'];?>"><?php echo _title($_html['content'],14)?></td><td><?php echo $_html['date']?></td><td><input type="checkbox" name="ids[]" value="<?php echo $_html['id']?>"/></td></tr>
                 <?php 
                     }
                     _free_result($_result);

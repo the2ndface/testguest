@@ -77,7 +77,7 @@ h2{
 	height:20px;
 	position:relative;
 	padding:20px 0;
-
+	font-size:12px;
 }
 
 #page_num ul{
@@ -114,6 +114,7 @@ h2{
 	clear:both;
 	height:20px;
 	padding:20px 0;
+	font-size:12px;
 }
 
 #page_text ul{
