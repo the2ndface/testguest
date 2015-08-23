@@ -46,6 +46,7 @@
 			    ");
  	        
 			if (_affected_rows() == 1) {
+			    _query("UPDATE tg_article SET tg_commendcount=tg_commendcount+1 WHERE tg_reid=0 AND tg_id='{$_clean['reid']}'");
 			    _close();
 			    _session_destroy();
 			    _location('回帖成功！','article.php?id='.$_clean['reid']);
@@ -58,7 +59,7 @@
  	    }
  	}
  	//读出帖子数据
- 	if(isset($_GET['id'])){
+        if(isset($_GET['id'])){
  	    if(!!$_rows=_fetch_array("SELECT tg_id,tg_username,tg_type,tg_title,tg_content,tg_readcount,tg_commendcount,tg_date
  	                                FROM tg_article
  	                               WHERE tg_reid= 0 AND tg_id='{$_GET['id']}'
@@ -69,7 +70,7 @@
  	        _query("UPDATE tg_article SET tg_readcount=tg_readcount+1 WHERE tg_id='{$_GET['id']}' ");
  	        $_html = array();
  	        $_html['reid'] = $_rows['tg_id'];
- 	        $_html['username'] = $_rows['tg_username'];
+ 	        $_html['username_subject'] = $_rows['tg_username'];
  	        $_html['title'] = $_rows['tg_title'];
  	        $_html['type'] = $_rows['tg_type'];
  	        $_html['content'] = $_rows['tg_content'];
@@ -85,7 +86,7 @@
  	        //读取发帖用户信息
  	        if(!!$_rows=_fetch_array(" SELECT tg_id,tg_sex,tg_face,tg_email,tg_url
  	                                     FROM tg_user
- 	                                    WHERE tg_username='{$_html['username']}'
+ 	                                    WHERE tg_username='{$_html['username_subject']}'
  	                                  ")){
                   //提取用户信息
                   $_html['userid'] = $_rows['tg_id'];
@@ -97,7 +98,7 @@
             
             //读取用户回帖
             global $_pagesize,$_pagenum,$_page;
-            _page("SELECT tg_id FROM tg_article WHERE tg_reid='{$_html['reid']}'",2);
+            _page("SELECT tg_id FROM tg_article WHERE tg_reid='{$_html['reid']}'",10);
             
             $_result = _query("SELECT   *
                                  FROM   tg_article
@@ -141,8 +142,8 @@
 		<?php if($_page==1){?>
 		<div id="subject">
       		<dl>
-    			<dd class="user"><?php echo $_html['username']?>(<?php echo $_html['sex']?>)</dd>
-    			<dt><img src="<?php echo $_html['face']?>" alt="<?php echo $_html['username']?>" /></dt>
+    			<dd class="user"><?php echo $_html['username_subject']?>(<?php echo $_html['sex']?>)[楼主]</dd>
+    			<dt><img src="<?php echo $_html['face']?>" alt="<?php echo $_html['username_subject']?>" /></dt>
     			<dd class="message"><a href="javascript:;" name="message" title="<?php echo $_html['userid']?>">发消息</a></dd>
     			<dd class="friend"><a href="javascript:;" name="friend" title="<?php echo $_html['userid']?>">加为好友</a></dd>
     			<dd class="guest">写留言</dd>
@@ -152,7 +153,7 @@
     		</dl>
     		<div class="content">
     			<div class="user">
-    				<span>1#</span><?php echo $_html['username']?> | 发表于：<?php echo $_html['date']?>
+    				<span>1#</span><?php echo $_html['username_subject']?> | 发表于：<?php echo $_html['date']?>
     			</div>
     			<h3>主题：<?php echo $_html['title']?> <img src="images/icon<?php echo $_html['type']?>.gif" alt="icon" /></h3>
     			<div class="detail">
@@ -167,10 +168,11 @@
         <?php }?>
 		
 		<?php 
+		  $_i=2;
 		  while(!!$_rows=_fetch_array_list($_result)){
 		      $_html['username'] = $_rows['tg_username'];
 		      $_html['type'] = $_rows['tg_type'];
-		      $_html['title'] = $_rows['tg_title'];
+		      $_html['retitle'] = $_rows['tg_title'];
 		      $_html['content'] = $_rows['tg_content'];
 		      $_html['date'] = $_rows['tg_date'];
 		      
@@ -191,12 +193,20 @@
 		      }else{
 		          //这个用户可能已经被删除
 		      }
+		      //2楼回帖为沙发
+		      if($_i==2){
+		          if($_html['username']==$_html['username_subject']){
+		              $_html['username_html'] = $_html['username'].'(楼主)';
+		          }else{
+		              $_html['username_html'] = $_html['username'].'(沙发)';
+		          }
+		      }
 		  
 		?>
 		<div class="re">
 		    
       		<dl>
-    			<dd class="user"><?php echo $_html['username']?>(<?php echo $_html['sex']?>)</dd>
+    			<dd class="user"><?php echo $_html['username_html']?>(<?php echo $_html['sex']?>)</dd>
     			<dt><img src="<?php echo $_html['face']?>" alt="<?php echo $_html['username']?>" /></dt>
     			<dd class="message"><a href="javascript:;" name="message" title="<?php echo $_html['userid']?>">发消息</a></dd>
     			<dd class="friend"><a href="javascript:;" name="friend" title="<?php echo $_html['userid']?>">加为好友</a></dd>
@@ -207,9 +217,9 @@
     		</dl>
     		<div class="content">
     			<div class="user">
-    				<span>1#</span><?php echo $_html['username']?> | 发表于：<?php echo $_html['date']?>
+    				<span><?php echo $_i+($_page-1)*$_pagesize;?>#</span><?php echo $_html['username']?> | 发表于：<?php echo $_html['date']?>
     			</div>
-    			<h3>主题：<?php echo $_html['title']?> <img src="images/icon<?php echo $_html['type']?>.gif" alt="icon" /></h3>
+    			<h3>主题：<?php echo $_html['retitle']?> <img src="images/icon<?php echo $_html['type']?>.gif" alt="icon" /></h3>
     			<div class="detail">
     				<?php echo _ubb($_html['content'])?>
     			</div>
@@ -218,7 +228,8 @@
 		</div>
 		
 		<p class="line"></p>
-		<?php 
+		<?php
+		      $_i++;
 		  }
 		  _paging(1);
 		?>
