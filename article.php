@@ -77,6 +77,10 @@
  	        $_html['commendcount'] = $_rows['tg_commendcount'];
  	        $_html['date'] = $_rows['tg_date'];
  	        
+ 	        //设置全局变量，传递帖子ID
+ 	        global $_id;
+ 	        $_id = 'id='.$_html['reid'].'&';
+ 	        
  	        
  	        //读取发帖用户信息
  	        if(!!$_rows=_fetch_array(" SELECT tg_id,tg_sex,tg_face,tg_email,tg_url
@@ -90,6 +94,20 @@
                   $_html['email'] = $_rows['tg_email'];
                   $_html['url'] = $_rows['tg_url'];
                   $_html=_html($_html);
+            
+            //读取用户回帖
+            global $_pagesize,$_pagenum,$_page;
+            _page("SELECT tg_id FROM tg_article WHERE tg_reid='{$_html['reid']}'",2);
+            
+            $_result = _query("SELECT   *
+                                 FROM   tg_article
+                                WHERE   tg_reid='{$_html['reid']}'
+                             ORDER BY   tg_date ASC
+                                LIMIT   $_pagenum,$_pagesize            
+                ");
+            
+            
+                  
                   
  	        }else{
  	            //这个用户已被删除
@@ -100,8 +118,7 @@
  	}else{
  	    _alert_back('非法操作！');
  	}
- 	
- 	
+
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -121,6 +138,7 @@
 
 	<div id="article">
 		<h2>帖子详情</h2>
+		<?php if($_page==1){?>
 		<div id="subject">
       		<dl>
     			<dd class="user"><?php echo $_html['username']?>(<?php echo $_html['sex']?>)</dd>
@@ -146,7 +164,35 @@
     		</div>
 		</div>
 		<p class="line"></p>
+        <?php }?>
 		
+		<?php 
+		  while(!!$_rows=_fetch_array_list($_result)){
+		      $_html['username'] = $_rows['tg_username'];
+		      $_html['type'] = $_rows['tg_type'];
+		      $_html['title'] = $_rows['tg_title'];
+		      $_html['content'] = $_rows['tg_content'];
+		      $_html['date'] = $_rows['tg_date'];
+		      
+		      $_html=_html($_html);
+		      
+		      //读取发帖用户 信息
+		      if(!!$_rows=_fetch_array("SELECT tg_id,tg_face,tg_sex,tg_url,tg_email
+		                                FROM tg_user
+		                               WHERE tg_username='{$_html['username']}'                  
+		          ")){
+	            $_html['userid'] = $_rows['tg_id'];
+				$_html['sex'] = $_rows['tg_sex'];
+				$_html['face'] = $_rows['tg_face'];
+				$_html['email'] = $_rows['tg_email'];
+				$_html['url'] = $_rows['tg_url'];
+				$_html = _html($_html);
+				
+		      }else{
+		          //这个用户可能已经被删除
+		      }
+		  
+		?>
 		<div class="re">
 		    
       		<dl>
@@ -165,13 +211,17 @@
     			</div>
     			<h3>主题：<?php echo $_html['title']?> <img src="images/icon<?php echo $_html['type']?>.gif" alt="icon" /></h3>
     			<div class="detail">
-    				回帖内容！！
+    				<?php echo _ubb($_html['content'])?>
     			</div>
     			
     		</div>
 		</div>
 		
 		<p class="line"></p>
+		<?php 
+		  }
+		  _paging(1);
+		?>
 		<?php if(isset($_COOKIE['username'])){?>
 		<form method="post" action="?action=rearticle">
 		    <input type="hidden" name="reid" value="<?php echo $_html['reid']?>" />
