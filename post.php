@@ -77,7 +77,7 @@
 	?>
 
 	<div id="post">
-		<h2>会员注册</h2>
+		<h2>发表帖子</h2>
 		<form action="?action=post" name="post" method="post">
 			<input type="hidden" name="uniqid" value="<?php echo $_uniqid; ?>"  />
 			<dl>

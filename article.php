@@ -60,14 +60,12 @@
  	}
  	//读出帖子数据
         if(isset($_GET['id'])){
- 	    if(!!$_rows=_fetch_array("SELECT tg_id,tg_username,tg_type,tg_title,tg_content,tg_readcount,tg_commendcount,tg_date
+ 	    if(!!$_rows=_fetch_array("SELECT tg_id,tg_username,tg_type,tg_title,tg_content,tg_readcount,tg_commendcount,tg_date,tg_last_modify_date
  	                                FROM tg_article
- 	                               WHERE tg_reid= 0 AND tg_id='{$_GET['id']}'
- 	                                 
- 	                             ")){
+ 	                               WHERE tg_reid= 0 AND tg_id='{$_GET['id']}'")){
  	                             
  	        //累积阅读量
- 	        _query("UPDATE tg_article SET tg_readcount=tg_readcount+1 WHERE tg_id='{$_GET['id']}' ");
+ 	        _query("UPDATE tg_article SET tg_readcount=tg_readcount+1 WHERE tg_id='{$_GET['id']}'");
  	        $_html = array();
  	        $_html['reid'] = $_rows['tg_id'];
  	        $_html['username_subject'] = $_rows['tg_username'];
@@ -77,24 +75,37 @@
  	        $_html['readcount'] = $_rows['tg_readcount'];
  	        $_html['commendcount'] = $_rows['tg_commendcount'];
  	        $_html['date'] = $_rows['tg_date'];
+ 	        $_html['last_modify_date'] = $_rows['tg_last_modify_date'];
  	        
- 	        //设置全局变量，传递帖子ID
- 	        global $_id;
- 	        $_id = 'id='.$_html['reid'].'&';
+
  	        
  	        
- 	        //读取发帖用户信息
- 	        if(!!$_rows=_fetch_array(" SELECT tg_id,tg_sex,tg_face,tg_email,tg_url
- 	                                     FROM tg_user
- 	                                    WHERE tg_username='{$_html['username_subject']}'
- 	                                  ")){
-                  //提取用户信息
-                  $_html['userid'] = $_rows['tg_id'];
-                  $_html['sex'] = $_rows['tg_sex'];
-                  $_html['face'] = $_rows['tg_face'];
-                  $_html['email'] = $_rows['tg_email'];
-                  $_html['url'] = $_rows['tg_url'];
-                  $_html=_html($_html);
+        //读取发帖用户信息
+            if (!!$_rows=_fetch_array("SELECT  tg_id,tg_sex,tg_face,tg_email,tg_url
+                                     FROM  tg_user
+                                    WHERE  tg_username='{$_html['username_subject']}'")){
+              //提取用户信息
+              $_html['userid'] = $_rows['tg_id'];
+              $_html['sex'] = $_rows['tg_sex'];
+              $_html['face'] = $_rows['tg_face'];
+              $_html['email'] = $_rows['tg_email'];
+              $_html['url'] = $_rows['tg_url'];
+              $_html=_html($_html);
+              
+            //设置全局变量，传递帖子ID
+            global $_id;
+            $_id = 'id='.$_html['reid'].'&';
+            
+            //修改主题帖子
+            if($_html['username_subject']==$_COOKIE['username']){
+                $_html['subject_modify']='<a href="article_modify.php?id='.$_html['reid'].'">[修改]</a>';
+            }
+            
+            //主题修改时间
+            if($_html['last_modify_date']!='0000-00-00 00:00:00'){
+                $_html['last_modify_date_string'] = '本贴已由['.$_html['username_subject'].']于'.$_html['last_modify_date'].'修改过！';
+            }
+            
             
             //读取用户回帖
             global $_pagesize,$_pagenum,$_page;
@@ -106,13 +117,10 @@
                              ORDER BY   tg_date ASC
                                 LIMIT   $_pagenum,$_pagesize            
                 ");
-            
-            
                   
-                  
- 	        }else{
- 	            //这个用户已被删除
- 	        }
+        }else{
+            //这个用户已被删除
+        }
  	    }else{
  	        _alert_back('这个主题不存在！');
  	    }
@@ -153,13 +161,14 @@
     		</dl>
     		<div class="content">
     			<div class="user">
-    				<span>1#</span><?php echo $_html['username_subject']?> | 发表于：<?php echo $_html['date']?>
+    				<span><?php echo $_html['subject_modify']?>1#</span><?php echo $_html['username_subject']?> | 发表于：<?php echo $_html['date']?>
     			</div>
     			<h3>主题：<?php echo $_html['title']?> <img src="images/icon<?php echo $_html['type']?>.gif" alt="icon" /></h3>
     			<div class="detail">
     				<?php echo _ubb($_html['content'])?>
     			</div>
     			<div class="read">
+    			    <p><?php echo $_html['last_modify_date_string']?></p>
     				阅读量：(<?php echo $_html['readcount']?>) 评论量：(<?php echo $_html['commendcount']?>)
     			</div>
     		</div>

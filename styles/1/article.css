@@ -240,6 +240,11 @@
 	color:#666;
 }
 
+#article #subject div.content div.read p{
+	text-align:right;
+	padding:0 0 15px 0;
+}
+
 #article dl {
 	width:450px;
 	margin:0 auto;
