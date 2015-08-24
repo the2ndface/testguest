@@ -106,7 +106,10 @@
                 $_html['last_modify_date_string'] = '本贴已由['.$_html['username_subject'].']于'.$_html['last_modify_date'].'修改过！';
             }
             
-            
+            //对楼主进行回复
+            if($_COOKIE['username']){
+                $_html['re']='<span>[<a href="#ree" name="re" title="回复1楼的'.$_html['username_subject'].'">回复</a>]</span>';
+            }
             //读取用户回帖
             global $_pagesize,$_pagenum,$_page;
             _page("SELECT tg_id FROM tg_article WHERE tg_reid='{$_html['reid']}'",10);
@@ -163,7 +166,7 @@
     			<div class="user">
     				<span><?php echo $_html['subject_modify']?>1#</span><?php echo $_html['username_subject']?> | 发表于：<?php echo $_html['date']?>
     			</div>
-    			<h3>主题：<?php echo $_html['title']?> <img src="images/icon<?php echo $_html['type']?>.gif" alt="icon" /></h3>
+    			<h3>主题：<?php echo $_html['title']?> <img src="images/icon<?php echo $_html['type']?>.gif" alt="icon" /><?php echo $_html['re']?></h3>
     			<div class="detail">
     				<?php echo _ubb($_html['content'])?>
     			</div>
@@ -177,7 +180,9 @@
         <?php }?>
 		
 		<?php 
+		  //楼层设置
 		  $_i=2;
+		  //读取帖子内容并循环显示
 		  while(!!$_rows=_fetch_array_list($_result)){
 		      $_html['username'] = $_rows['tg_username'];
 		      $_html['type'] = $_rows['tg_type'];
@@ -203,14 +208,20 @@
 		          //这个用户可能已经被删除
 		      }
 		      //2楼回帖为沙发
-		      if($_i==2){
+		      if($_i==2 && $_page==1){
 		          if($_html['username']==$_html['username_subject']){
 		              $_html['username_html'] = $_html['username'].'(楼主)';
 		          }else{
 		              $_html['username_html'] = $_html['username'].'(沙发)';
 		          }
+		      }else{
+		          $_html['username_html'] = $_html['username'];
 		      }
-		  
+		      
+		      //跟帖回复
+		      if($_COOKIE['username']){
+		          $_html['re']='<span>[<a href="#ree" name="re" title="回复'.($_i+($_page-1)*$_pagesize).'楼的'.$_html['username'].'">回复</a>]</span>';
+		      }
 		?>
 		<div class="re">
 		    
@@ -228,7 +239,7 @@
     			<div class="user">
     				<span><?php echo $_i+($_page-1)*$_pagesize;?>#</span><?php echo $_html['username']?> | 发表于：<?php echo $_html['date']?>
     			</div>
-    			<h3>主题：<?php echo $_html['retitle']?> <img src="images/icon<?php echo $_html['type']?>.gif" alt="icon" /></h3>
+    			<h3>主题：<?php echo $_html['retitle']?> <img src="images/icon<?php echo $_html['type']?>.gif" alt="icon" /><?php echo $_html['re']?></h3>
     			<div class="detail">
     				<?php echo _ubb($_html['content'])?>
     			</div>
@@ -243,6 +254,7 @@
 		  _paging(1);
 		?>
 		<?php if(isset($_COOKIE['username'])){?>
+		<a name="ree"></a>
 		<form method="post" action="?action=rearticle">
 		    <input type="hidden" name="reid" value="<?php echo $_html['reid']?>" />
 		    <input type="hidden" name="type" value="<?php echo $_html['type']?>" />
