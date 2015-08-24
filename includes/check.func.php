@@ -301,8 +301,18 @@
 	    return $_string;
 	}
 	
-	
-	
+	/**
+	 * _check_autograph 个性签名检查
+	 * @param unknown $_string
+	 * @param unknown $_min_num
+	 * @return unknown
+	 */
+	function _check_autograph($_string,$_min_num){
+	    if(mb_strlen($_string,'utf-8') > $_min_num ){
+	        _alert_back('帖子内容不得小于'.$_min_num.'位');
+	    }
+	    return $_string;
+	}
 	
 	
 	

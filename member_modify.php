@@ -31,6 +31,8 @@ if ($_GET['action'] == 'modify') {
         $_clean['email'] = _check_email($_POST['email'],6,40);
         $_clean['qq']	= _check_qq($_POST['qq']);
         $_clean['url'] = _check_url($_POST['url'],40);
+        $_clean['switch'] = $_POST['switch'];
+        $_clean['autograph'] = _check_autograph($_POST['autograph'],200);
         
         if(empty($_clean['password'])){
             _query("UPDATE tg_user SET
@@ -38,8 +40,10 @@ if ($_GET['action'] == 'modify') {
                                         tg_face='{$_clean['face']}',
                                         tg_email='{$_clean['email']}',
                                         tg_qq='{$_clean['qq']}',
-                                        tg_url='{$_clean['url']}'
-                                    WHERE tg_username='{$_COOKIE['username']}'
+                                        tg_url='{$_clean['url']}',
+                                        tg_switch='{$_clean['switch']}',
+                                        tg_autograph='{$_clean['autograph']}'
+                                  WHERE tg_username='{$_COOKIE['username']}'
                 
                 ");
         }else{
@@ -49,8 +53,10 @@ if ($_GET['action'] == 'modify') {
                                         tg_face='{$_clean['face']}',
                                         tg_email='{$_clean['email']}',
                                         tg_qq='{$_clean['qq']}',
-                                        tg_url='{$_clean['url']}'
-                                        WHERE tg_username='{$_COOKIE['username']}'
+                                        tg_url='{$_clean['url']}',
+                                        tg_switch='{$_clean['switch']}',
+                                        tg_autograph='{$_clean['autograph']}'
+                                  WHERE tg_username='{$_COOKIE['username']}'
             
             ");
         }
@@ -80,6 +86,8 @@ if ($_GET['action'] == 'modify') {
             $_html['email']= $_rows['tg_email'];
             $_html['url']= $_rows['tg_url'];
             $_html['qq']= $_rows['tg_qq'];
+            $_html['switch']= $_rows['tg_switch'];
+            $_html['autograph']= $_rows['tg_autograph'];
             
             $_html = _html($_html);
             
@@ -100,7 +108,15 @@ if ($_GET['action'] == 'modify') {
                 foreach(range(10,64) as $_num){
                     $_html['face_html'].= '<option value="face/m0'.$_num.'.gif">face/m0'.$_num.'.gif</option>';
                 }
-            $_html['face_html'].='</select>';                   
+            $_html['face_html'].='</select>';     
+
+            //签名设置
+            if($_html['switch']==1){
+                $_html['switch_html']='<input type="radio" name="switch" value=1 checked="checked" />启用 <input type="radio" name="switch" value=0 />禁用';
+            }elseif($_html['switch']==0){
+                $_html['switch_html']='<input type="radio" name="switch" value=1 />启用 <input type="radio" name="switch" value=0 checked="checked" />禁用';
+            }
+            
        }else{
            _alert_back('用户不存在！');
        }
@@ -139,8 +155,12 @@ if ($_GET['action'] == 'modify') {
             <dd>电子邮件：<input type="text" class="text" name="email" value="<?php echo $_html['email']?>"></input></dd>
             <dd>主　　页：<input type="text" class="text" name="url" value="<?php echo $_html['url']?>"></input></dd>
             <dd>Q　 　   Q：<input type="text" class="text" name="qq" value="<?php echo $_html['qq']?>"></input></dd>
-            <dd>验 证 码：<input type="text" name="code" class="text yzm"/> <img src="code.php" id="code" /></dd>
-            <dd><input type="submit" class="submit" name="submit" value="修改资料"></input></dd>           
+            <dd>设置签名：<?php echo $_html['switch_html']?>(可以使用UBB代码)
+                <p><textarea name="autograph"><?php echo $_html['autograph']?></textarea></p>
+            </dd>
+            
+            <dd>验 证 码：<input type="text" name="code" class="text yzm"/> <img src="code.php" id="code" /><input type="submit" class="submit" name="submit" value="修改资料" /></dd>
+                    
         </dl>
         </form>
     </div>

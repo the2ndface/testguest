@@ -202,6 +202,11 @@
         fclose($_fp);
     }
     
+    /**
+     * _ubb()解析
+     * @param unknown $_string
+     * @return mixed
+     */
     function _ubb($_string){
         $_string = nl2br($_string);
         $_string = preg_replace('/\[size=(.*)\](.*)\[\/size\]/U', '<span style="font-size:\1px">\2</span>', $_string);

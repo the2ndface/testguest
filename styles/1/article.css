@@ -126,6 +126,14 @@
 	font-size:14px;
 }
 
+#article div.content .detail p.autograph{
+	border-bottom:1px dashed #333;
+	width:80%;
+	color:#666;
+	margin:5px 0;
+	padding:5px 0;
+}
+
 #article #subject div.content .detail a{
 	text-decoration:none;
 	color:blue;

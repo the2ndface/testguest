@@ -58,6 +58,7 @@
       
  	    }
  	}
+ 	
  	//读出帖子数据
         if(isset($_GET['id'])){
  	    if(!!$_rows=_fetch_array("SELECT tg_id,tg_username,tg_type,tg_title,tg_content,tg_readcount,tg_commendcount,tg_date,tg_last_modify_date
@@ -81,7 +82,7 @@
  	        
  	        
         //读取发帖用户信息
-            if (!!$_rows=_fetch_array("SELECT  tg_id,tg_sex,tg_face,tg_email,tg_url
+            if (!!$_rows=_fetch_array("SELECT  tg_id,tg_sex,tg_face,tg_email,tg_url,tg_switch,tg_autograph
                                      FROM  tg_user
                                     WHERE  tg_username='{$_html['username_subject']}'")){
               //提取用户信息
@@ -90,6 +91,8 @@
               $_html['face'] = $_rows['tg_face'];
               $_html['email'] = $_rows['tg_email'];
               $_html['url'] = $_rows['tg_url'];
+              $_html['switch'] = $_rows['tg_switch'];
+              $_html['autograph'] = $_rows['tg_autograph'];
               $_html=_html($_html);
               
             //设置全局变量，传递帖子ID
@@ -110,6 +113,13 @@
             if($_COOKIE['username']){
                 $_html['re']='<span>[<a href="#ree" name="re" title="回复1楼的'.$_html['username_subject'].'">回复</a>]</span>';
             }
+            
+            //楼主个性签名
+            if($_html['switch']==1){
+                $_html['autograph_html']='<p class="autograph">'._ubb($_html['autograph']).'</p>';
+            }
+            
+            
             //读取用户回帖
             global $_pagesize,$_pagenum,$_page;
             _page("SELECT tg_id FROM tg_article WHERE tg_reid='{$_html['reid']}'",10);
@@ -169,6 +179,7 @@
     			<h3>主题：<?php echo $_html['title']?> <img src="images/icon<?php echo $_html['type']?>.gif" alt="icon" /><?php echo $_html['re']?></h3>
     			<div class="detail">
     				<?php echo _ubb($_html['content'])?>
+    				<?php echo $_html['autograph_html']?>
     			</div>
     			<div class="read">
     			    <p><?php echo $_html['last_modify_date_string']?></p>
@@ -192,16 +203,18 @@
 		      
 		      $_html=_html($_html);
 		      
-		      //读取发帖用户 信息
-		      if(!!$_rows=_fetch_array("SELECT tg_id,tg_face,tg_sex,tg_url,tg_email
-		                                FROM tg_user
-		                               WHERE tg_username='{$_html['username']}'                  
+		      //读取回帖用户 信息
+		      if(!!$_rows=_fetch_array("SELECT tg_id,tg_face,tg_sex,tg_url,tg_email,tg_switch,tg_autograph
+		                                  FROM tg_user
+		                                 WHERE tg_username='{$_html['username']}'                  
 		          ")){
 	            $_html['userid'] = $_rows['tg_id'];
 				$_html['sex'] = $_rows['tg_sex'];
 				$_html['face'] = $_rows['tg_face'];
 				$_html['email'] = $_rows['tg_email'];
 				$_html['url'] = $_rows['tg_url'];
+				$_html['switch'] = $_rows['tg_switch'];
+				$_html['autograph'] = $_rows['tg_autograph'];
 				$_html = _html($_html);
 				
 		      }else{
@@ -217,6 +230,7 @@
 		      }else{
 		          $_html['username_html'] = $_html['username'];
 		      }
+
 		      
 		      //跟帖回复
 		      if($_COOKIE['username']){
@@ -242,6 +256,11 @@
     			<h3>主题：<?php echo $_html['retitle']?> <img src="images/icon<?php echo $_html['type']?>.gif" alt="icon" /><?php echo $_html['re']?></h3>
     			<div class="detail">
     				<?php echo _ubb($_html['content'])?>
+    				<?php 
+            		      if($_html['switch']==1){
+                              echo '<p class="autograph">'._ubb($_html['autograph']).'</p>';
+                          }
+    				?>
     			</div>
     			
     		</div>
