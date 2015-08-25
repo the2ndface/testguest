@@ -17,7 +17,54 @@
     //判断是否是管理员登录
     _manage_login();
     
-    //读取数据
+    //写入数据
+    if($_GET['action']=='set'){
+        if(!!$_rows=_fetch_array("SELECT tg_uniqid FROM tg_user WHERE tg_username='{$_COOKIE['username']}'")){
+            _uniqid($_rows[tg_uniqid], $_COOKIE['uniqid']);
+            //接收数据
+            $_clean = array();
+            $_clean['webname'] = $_POST['webname'];
+            $_clean['article'] = $_POST['article'];
+            $_clean['blog'] = $_POST['blog'];
+            $_clean['photo'] = $_POST['photo'];
+            $_clean['skin'] = $_POST['skin'];
+            $_clean['post'] = $_POST['post'];
+            $_clean['re'] = $_POST['re'];
+            $_clean['code'] = $_POST['code'];
+            $_clean['register'] = $_POST['register'];
+            $_clean['string'] = $_POST['string'];
+            $_clean = _mysql_string($_clean);
+            
+            //写入数据库
+            _query("UPDATE tg_system SET
+                                            tg_webname='{$_clean['webname']}',
+                                            tg_article='{$_clean['article']}',
+                                            tg_blog='{$_clean['blog']}',
+                                            tg_photo='{$_clean['photo']}',
+                                            tg_skin='{$_clean['skin']}',
+                                            tg_post='{$_clean['post']}',
+                                            tg_re='{$_clean['re']}',
+                                            tg_code='{$_clean['code']}',
+                                            tg_register='{$_clean['register']}',
+                                            tg_string='{$_clean['string']}'
+                                   WHERE    tg_id=1
+                                   LIMIT    1
+            ");
+            
+            if (_affected_rows() == 1) {
+                _close();
+                _location('恭喜你，修改成功！','manage_set.php');
+            } else {
+                _close();
+                _location('很遗憾，没有任何数据被修改！','manage_set.php');
+            }
+        }else{
+            _alert_back('异常！');
+        }
+   
+    }
+    
+    //读取系统表
     if(!!$_rows=_fetch_array("SELECT    tg_webname,tg_article,tg_blog,tg_photo,tg_skin,tg_string,tg_post,tg_re,tg_code,tg_register
                                 FROM    tg_system
                                WHERE    tg_id=1
@@ -109,7 +156,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>多用户留言系统--管理中心</title>
 <?php 
 	require 'includes/title.inc.php';
 ?>
@@ -124,19 +170,21 @@
     ?>
     <div id='member_main'>
         <h2>后台管理中心</h2>
-        <dl>
-            <dd>·网 站 名 称：<input type="text" name="webname" class="text" value="<?php echo $_html['webname']?>"/></dd>
-            <dd>·文章每页列表数：<?php echo $_html['article_html']?></dd>
-            <dd>·博客每页列表数：<?php echo $_html['blog_html']?></dd>
-            <dd>·相册每页列表数：<?php echo $_html['photo_html']?></dd>
-            <dd>·站点 默认 皮肤：<?php echo $_html['skin_html']?></dd>
-            <dd>·非法 字符 过滤：<input type="text" name="string" class="text" value="<?php echo $_html['string']?>"/></dd>
-            <dd>·每次 发帖 限制：<?php echo $_html['post_html']?></dd>
-            <dd>·每次 回帖 限制：<?php echo $_html['re_html']?></dd>
-            <dd>·是否 启用 验证：<?php echo $_html['code_html']?></dd>
-            <dd>·是否 开放 注册：<?php echo $_html['register_html']?></dd>
-			<dd><input type="submit" value="修改系统设置" class="submit" /></dd>
-        </dl>
+        <form method="post" action="?action=set">
+            <dl>
+                <dd>·网 站 名 称：<input type="text" name="webname" class="text" value="<?php echo $_html['webname']?>"/></dd>
+                <dd>·文章每页列表数：<?php echo $_html['article_html']?></dd>
+                <dd>·博客每页列表数：<?php echo $_html['blog_html']?></dd>
+                <dd>·相册每页列表数：<?php echo $_html['photo_html']?></dd>
+                <dd>·站点 默认 皮肤：<?php echo $_html['skin_html']?></dd>
+                <dd>·非法 字符 过滤：<input type="text" name="string" class="text" value="<?php echo $_html['string']?>"/></dd>
+                <dd>·每次 发帖 限制：<?php echo $_html['post_html']?></dd>
+                <dd>·每次 回帖 限制：<?php echo $_html['re_html']?></dd>
+                <dd>·是否 启用 验证：<?php echo $_html['code_html']?></dd>
+                <dd>·是否 开放 注册：<?php echo $_html['register_html']?></dd>
+    			<dd><input type="submit" value="修改系统设置" class="submit" /></dd>
+            </dl>
+        </form>
     </div>
 
 

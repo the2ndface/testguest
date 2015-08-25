@@ -70,7 +70,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>多用户留言系统--发表帖子</title>
 <?php 
 	require 'includes/title.inc.php';
 ?>
@@ -85,7 +84,6 @@
 	<div id="post">
 		<h2>发表帖子</h2>
 		<form action="?action=post" name="post" method="post">
-			<input type="hidden" name="uniqid" value="<?php echo $_uniqid; ?>"  />
 			<dl>
 				<dt>请认真填写以下内容</dt>
 				<dd>类　　型：

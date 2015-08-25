@@ -50,6 +50,17 @@
         $GLOBALS['message'] = '<strong class="read"><a href="member_message.php">('.$_message['count'].')</a></strong>';
     }
     
+    //网站系统设置初始化
+    if(!!$_rows=_fetch_array("SELECT    tg_webname,tg_article,tg_blog,tg_photo,tg_skin,tg_string,tg_post,tg_re,tg_code,tg_register
+                                FROM    tg_system
+                               WHERE    tg_id=1
+                               LIMIT    1
+                            ")){
+   	$_system = array();
+    $_system['webname']=$_rows['tg_webname'];
+    }else{
+        exit('系统表异常，请管理员检查！');
+    }
 	
 	
 ?>

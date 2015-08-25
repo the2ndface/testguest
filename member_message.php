@@ -69,7 +69,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>多用户留言系统--会员中心</title>
 <?php 
 	require 'includes/title.inc.php';
 ?>
@@ -110,7 +109,7 @@
                     }
                     _free_result($_result);
                 ?>
-                <tr><td colspan="5"><label for="all">全选<input type="checkbox" name="chkall" id="all" /></label><input type="submit" value="批量删除"/></input></td></tr>
+                <tr><td colspan="5"><label for="all">全选<input type="checkbox" name="chkall" id="all" /></label><input type="submit" value="批量删除"/></td></tr>
             </table>
         </form>
         <?php _paging(2);?>

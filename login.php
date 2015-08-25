@@ -63,7 +63,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>多用户留言系统--登录</title>
 <?php 
 	require 'includes/title.inc.php';
 ?>
@@ -82,10 +81,10 @@
 				<dt> </dt>
 				<dd>用 户 名：<input type="text" name="username" class="text"/></dd>
 				<dd>密　　码：<input type="password" name="password" class="text"/></dd>
-				<dd>保　　留：<input type="radio" name="time" value='0' checked="checked">不保留</input>
-				           <input type="radio" name="time" value='1' >一天</input>
-				           <input type="radio" name="time" value='2' >一周</input>
-				           <input type="radio" name="time" value='3' >一月</input>
+				<dd>保　　留：<input type="radio" name="time" value='0' checked="checked" />不保留
+				           <input type="radio" name="time" value='1' />一天
+				           <input type="radio" name="time" value='2' />一周
+				           <input type="radio" name="time" value='3' />一月
 				</dd>
 				<dd>验 证 码：<input type="text" name="code" class="text code"/> <img src="code.php" id="code" /></dd>
 				<dd><input type="submit" name="submit" class="button" value="登录"/><input type="button" name="button" id="location" class="button location" value="注册"/></dd>

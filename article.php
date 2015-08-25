@@ -151,7 +151,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>多用户留言系统--帖子内容</title>
 <?php 
 	require 'includes/title.inc.php';
 ?>
@@ -283,7 +282,7 @@
 		    <input type="hidden" name="reid" value="<?php echo $_html['reid']?>" />
 		    <input type="hidden" name="type" value="<?php echo $_html['type']?>" />
     		<dl>
-    		<dd>标　　题：<input type="text" name="title" class="text"/ value="RE:<?php echo $_html['title']?>" />*（必填，2-40位）</dd>
+    		<dd>标　　题：<input type="text" name="title" class="text" value="RE:<?php echo $_html['title']?>" />*（必填，2-40位）</dd>
     				<dd id="q">贴　　图：　<a href="javascript:;">Q图系列[1]</a>　<a href="javascript:;"> Q图系列[2]</a>　 <a href="javascript:;">Q图系列[3]</a></dd>
     				<dd>
                         <?php include 'includes/ubb.inc.php';?>

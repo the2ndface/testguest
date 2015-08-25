@@ -129,7 +129,6 @@ if ($_GET['action'] == 'modify') {
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>多用户留言系统--注册</title>
 <script type="text/javascript" src="js/code.js"></script>
 <script type="text/javascript" src="js/member_modify.js"></script>
 <?php 
@@ -149,7 +148,7 @@ if ($_GET['action'] == 'modify') {
         <form method="post" action="?action=modify" name='modify'>
         <dl>
             <dd>用 户 名：<?php echo $_rows['tg_username']?></dd>
-            <dd>性　　别：<input type='password' class='text' name='password' value=''>（为空则不修改）</input></dd>
+            <dd>性　　别：<input type='password' class='text' name='password' value='' />（为空则不修改）</dd>
             <dd>性　　别：<?php echo $_html['sex_html']?></dd>
             <dd>头　　像：<?php echo $_html['face_html']?></dd>
             <dd>电子邮件：<input type="text" class="text" name="email" value="<?php echo $_html['email']?>"></input></dd>

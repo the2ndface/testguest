@@ -15,7 +15,10 @@
 	if(!defined('SCRIPT')){
 		exit('Script error!');
 	}
+	
+	global $_system;
 ?>
+<title><?php echo $_system['webname'] ?></title>
 <link rel="shortcut icon" href="favicon.ico" />
 <link rel="stylesheet" type="text/css" href="styles/1/basic.css"/>
 <link rel="stylesheet" type="text/css" href="styles/1/<?php echo SCRIPT?>.css"/>
