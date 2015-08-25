@@ -47,11 +47,11 @@
      	          ");
  	        if (_affected_rows() == 1) {
      	        _close();
-     	        _session_destroy();
+//      	        _session_destroy();
      	        _location('帖子修改成功！','article.php?id='.$_clean['id']);
      	    } else {
      	        _close();
-         	    _session_destroy();
+//          	    _session_destroy();
          	    _alert_back('帖子修改失败！');
      	    }
  	    

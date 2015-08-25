@@ -64,13 +64,13 @@
             if (_affected_rows()==1){
                 //关闭数据库
                 _close();
-                _session_destroy();
+//                 _session_destroy();
                 //跳转
                 _alert_close('送花成功');
             }else{
                 //关闭数据库
                 _close();
-                _session_destroy();
+//                 _session_destroy();
                 _alert_back('送花失败');
             }
             

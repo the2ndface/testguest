@@ -8,6 +8,7 @@
  * Author:Lee
  * Data:2015-1-4
  */
+    session_start();
  	define('IN_TG', true);
  	define('SCRIPT','index' );
     //引入公共文件	

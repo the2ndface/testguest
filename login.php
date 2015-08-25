@@ -33,7 +33,7 @@
  		
  		
  		//登录验证
- 		if(!!$_rows = _fetch_array("SELECT tg_username,tg_uniqid FROM tg_user WHERE tg_username='{$_clean['username']}' and tg_password='{$_clean['password']}' and tg_active='' LIMIT 1"))
+ 		if(!!$_rows = _fetch_array("SELECT tg_username,tg_uniqid,tg_level FROM tg_user WHERE tg_username='{$_clean['username']}' and tg_password='{$_clean['password']}' and tg_active='' LIMIT 1"))
  		{
  		    _query("UPDATE tg_user SET
  		                                 tg_last_time=NOW(),
@@ -44,12 +44,16 @@
  		         		        ");
  		    
  		    _close();
- 		    _session_destroy();
+//  		    _session_destroy();
+            if($_rows['tg_level']==1){
+                $_SESSION['admin']= $_rows['tg_username'];
+            }
+
  		    _setcookies($_rows['tg_username'], $_rows['tg_uniqid'], $_clean['time']);
  		    _location(null, 'member.php');
  		}else{
  		    _close();
- 		    _session_destroy();
+//  		    _session_destroy();
  		    _location('用户名或密码错误或者帐户未激活', 'login.php');
  		}
  		    

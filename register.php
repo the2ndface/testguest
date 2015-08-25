@@ -92,14 +92,14 @@
 			//关闭数据库
 			$_clean['id'] = _insert_id();
 			_close();
-			_session_destroy();
+// 			_session_destroy();
 			//跳转
 			_set_xml('new.xml', $_clean);
 			_location('恭喜您，注册成功，浏览器将跳转到激活页！','active.php?active='.$_clean[active]);
 		}else{
 			//关闭数据库
 			_close();
-			_session_destroy();
+// 			_session_destroy();
 			_location('对不起，注册失败，请重新注册','register.php');
 		}
 		

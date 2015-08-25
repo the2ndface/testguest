@@ -8,14 +8,14 @@
  * Author:@author
  * Date:2015年7月24日
  */
-
-define('IN_TG', true);
-//判断当前页面
-define('SCRIPT','member' ); 
-//引入公共文件
-require dirname(__FILE__).'/includes/common.inc.php';
-
-//判断是否登录
+    session_start();
+    define('IN_TG', true);
+    //判断当前页面
+    define('SCRIPT','member' ); 
+    //引入公共文件
+    require dirname(__FILE__).'/includes/common.inc.php';
+    
+    //判断是否登录
     if(isset($_COOKIE['username'])){
        //获取数据
        $_rows = _fetch_array("SELECT * FROM tg_user WHERE tg_username='{$_COOKIE['username']}' LIMIT 1");

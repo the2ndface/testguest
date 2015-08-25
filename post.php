@@ -51,15 +51,15 @@
             ");
             if (_affected_rows() == 1) {
                 $_clean['id'] = _insert_id();
-               // setcookie('post_time',time());
+//                setcookie('post_time',time());
                 $_clean['time'] = time();
                 _query("UPDATE tg_user SET tg_post_time='{$_clean['time']}' WHERE tg_username='{$_COOKIE['username']}'");
                 _close();
-                _session_destroy();
+//                 _session_destroy();
                 _location('帖子发表成功！','article.php?id='.$_clean['id']);
             } else {
                 _close();
-                _session_destroy();
+//                 _session_destroy();
                 _alert_back('帖子发表失败！');
             }
  	    }

@@ -8,7 +8,7 @@
 * Author:@author
 * Date:2015年8月1日
 */
-
+    session_start();
     define('IN_TG', true);
     //判断当前页面
     define('SCRIPT','member_flower' );

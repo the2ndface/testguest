@@ -53,11 +53,11 @@
                 _query("UPDATE tg_user SET tg_article_time='{$_clean['time']}' WHERE tg_username='{$_COOKIE['username']}'");
 			    _query("UPDATE tg_article SET tg_commendcount=tg_commendcount+1 WHERE tg_reid=0 AND tg_id='{$_clean['reid']}'");
 			    _close();
-			    _session_destroy();
+// 			    _session_destroy();
 			    _location('回帖成功！','article.php?id='.$_clean['reid']);
 			} else {
 			    _close();
-			    _session_destroy();
+// 			    _session_destroy();
 			    _alert_back('回帖失败！');
 			}
       

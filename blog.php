@@ -8,6 +8,7 @@
  * Author:@author
  * Date:2015年7月21日
  */
+    session_start();
  	define('IN_TG', true);
  	define('SCRIPT','blog' );
  //引入公共文件	
