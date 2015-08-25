@@ -8,6 +8,14 @@
  * Author:Lee
  * Data:2015-1-5
  */
+
+    function _manage_login(){
+        if((!isset($_COOKIE['username'])) || (!isset($_SESSION['admin']))){
+            _alert_back('非法登录！');
+        }
+    }
+    
+    
 	/**
 	 * _time（） 判断发帖间隔
 	 * @param  $_now_time  当前发帖时间

@@ -14,7 +14,8 @@
     define('SCRIPT','manage' ); 
     //引入公共文件
     require dirname(__FILE__).'/includes/common.inc.php';
-    
+    //判断是否是管理员登录
+    _manage_login();
 
 
  ?>
