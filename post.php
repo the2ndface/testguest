@@ -24,7 +24,7 @@
  	    //验证码验证
  	    _check_code($_POST['code'], $_SESSION['code']);
  	    //唯一标识符验证
- 	    if(!!$_rows=_fetch_array("SELECT  tg_uniqid
+ 	    if(!!$_rows=_fetch_array("SELECT  tg_uniqid,tg_post_time
                          	        FROM  tg_user
                          	       WHERE  tg_username='{$_COOKIE['username']}'
                          	       LIMIT  1
@@ -32,6 +32,9 @@
  	    ){
  	        //对比uniqid
  	        _uniqid($_rows['tg_uniqid'],$_COOKIE['uniqid']);
+ 	        //验证是否在规定的时间外发帖
+ 	        //_time(time(),$_COOKIE['post_time'],90);
+ 	        _time(time(),$_rows['tg_post_time'],90);
  	        include ROOT_PATH.'includes/check.func.php';
  	        //定义数据接收数据
             $_clean = array();
@@ -48,6 +51,9 @@
             ");
             if (_affected_rows() == 1) {
                 $_clean['id'] = _insert_id();
+               // setcookie('post_time',time());
+                $_clean['time'] = time();
+                _query("UPDATE tg_user SET tg_post_time='{$_clean['time']}' WHERE tg_username='{$_COOKIE['username']}'");
                 _close();
                 _session_destroy();
                 _location('帖子发表成功！','article.php?id='.$_clean['id']);

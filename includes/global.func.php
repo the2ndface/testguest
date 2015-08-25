@@ -8,27 +8,37 @@
  * Author:Lee
  * Data:2015-1-5
  */
-	
+	/**
+	 * _time（） 判断发帖间隔
+	 * @param  $_now_time  当前发帖时间
+	 * @param  $_pre_time  上一次发帖时间
+	 * @param  $_second    间隔时间
+	 */
+    function _time($_now_time,$_pre_time,$_second){
+        if($_now_time - $_pre_time < $_second){
+            _alert_back('请阁下休息一会再来发帖！');
+        }
+    }
+    
 
-/**
- * runtime()是用来获取执行耗时的
- * @access public 表示函数对外公开的
- * @return float 表示返回出来是浮点型数字
- * 
- */
-
+    /**
+     * runtime()是用来获取执行耗时的
+     * @access public 表示函数对外公开的
+     * @return float 表示返回出来是浮点型数字
+     * 
+     */
 	function _runtime(){
 		$_mtime = explode(' ', microtime());
 		return $_mtime[0] + $_mtime[1];
 		
 	}	
 
-/**
- * _alert_back() 用来弹出错误窗口并返回
- * @access public
- * @param string $_info 表示弹窗内容
- * @return void  弹窗报错信息并返回
- */
+    /**
+     * _alert_back() 用来弹出错误窗口并返回
+     * @access public
+     * @param string $_info 表示弹窗内容
+     * @return void  弹窗报错信息并返回
+     */
 	function _alert_back($_info){
 		echo "<script type='text/javascript'>alert('".$_info."');history.back(); </script>";
 		exit();
@@ -45,10 +55,10 @@
 	}
 	
 	
-/**
- * _html() 格式化HTML特殊字符。
- * @param unknown $_string
- */
+    /**
+     * _html() 格式化HTML特殊字符。
+     * @param unknown $_string
+     */
 	function _html($_string){
 	    if(is_array($_string)){
 	        foreach ($_string as $_key => $_value){
@@ -63,7 +73,8 @@
 	
 
 	
-	/*
+	/**
+	 * 
 	 * 对特殊字符进行转义
 	 */
 	function _mysql_string($_string){
@@ -82,9 +93,9 @@
 	
 	
 	/**
-	 * 
-	 * @param unknown $_info
-	 * @param unknown $_url
+	 * _location() 输出信息并跳转
+	 * @param  $_info 输出信息
+	 * @param  $_url   跳转地址
 	 */
 	function _location($_info,$_url){
 	    if(!empty($_info)){

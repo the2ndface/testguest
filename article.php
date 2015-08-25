@@ -20,7 +20,7 @@
  	    //验证码验证
  	    _check_code($_POST['code'], $_SESSION['code']);
  	    //唯一标识符验证
- 	    if(!!$_rows=_fetch_array("SELECT   tg_uniqid
+ 	    if(!!$_rows=_fetch_array("SELECT   tg_uniqid,tg_article_time
  	                                FROM   tg_user
  	                               WHERE   tg_username='{$_COOKIE['username']}'
  	                               LIMIT   1
@@ -28,7 +28,9 @@
  	    ){
  	        //对比uniqid
  	        _uniqid($_rows['tg_uniqid'],$_COOKIE['uniqid']);
- 	        
+ 	        //验证是否在规定的时间外发帖
+ 	        //_time(time(),$_COOKIE['article_time'],15);
+ 	        _time(time(),$_rows['tg_article_time'],15);
  	        //接收数据
  	        $_clean = array();
 			$_clean['reid'] = $_POST['reid'];
@@ -46,6 +48,9 @@
 			    ");
  	        
 			if (_affected_rows() == 1) {
+			    //setcookie('article_time',time())
+			    $_clean['time'] = time();
+                _query("UPDATE tg_user SET tg_article_time='{$_clean['time']}' WHERE tg_username='{$_COOKIE['username']}'");
 			    _query("UPDATE tg_article SET tg_commendcount=tg_commendcount+1 WHERE tg_reid=0 AND tg_id='{$_clean['reid']}'");
 			    _close();
 			    _session_destroy();
