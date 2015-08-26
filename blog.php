@@ -15,8 +15,8 @@
  	require dirname(__FILE__).'/includes/common.inc.php';
  
  //调用分页函数
-    global $_pagenum,$_pagesize;
-    _page('SELECT tg_id FROM tg_user',15);
+    global $_pagenum,$_pagesize,$_system;
+    _page('SELECT tg_id FROM tg_user',$_system['blog']);
  	
  
  //从数据库取出结果集

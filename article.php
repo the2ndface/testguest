@@ -17,8 +17,11 @@
  	require dirname(__FILE__).'/includes/common.inc.php';
  	//处理回帖
  	if($_GET['action']=='rearticle'){
- 	    //验证码验证
- 	    _check_code($_POST['code'], $_SESSION['code']);
+ 	    global $_system;
+ 	    if(!empty($_system['code'])){
+     	    //验证码验证
+     	    _check_code($_POST['code'], $_SESSION['code']);
+ 	    }
  	    //唯一标识符验证
  	    if(!!$_rows=_fetch_array("SELECT   tg_uniqid,tg_article_time
  	                                FROM   tg_user
@@ -26,11 +29,12 @@
  	                               LIMIT   1
  	        ")
  	    ){
+ 	        
  	        //对比uniqid
  	        _uniqid($_rows['tg_uniqid'],$_COOKIE['uniqid']);
  	        //验证是否在规定的时间外发帖
  	        //_time(time(),$_COOKIE['article_time'],15);
- 	        _time(time(),$_rows['tg_article_time'],15);
+ 	        _time(time(),$_rows['tg_article_time'],$_system['re']);
  	        //接收数据
  	        $_clean = array();
 			$_clean['reid'] = $_POST['reid'];
@@ -288,7 +292,10 @@
                         <?php include 'includes/ubb.inc.php';?>
     				    <textarea name="content" rows="14"></textarea>
     				</dd>
-    				<dd>验 证 码：<input type="text" name="code" class="text yzm"/> <img src="code.php" id="code" /> <input type="submit" name="sign" class="submit" value="发表帖子"/></dd>
+    				<?php if(!empty($_system['code'])){?>
+    				<dd>验 证 码：<input type="text" name="code" class="text yzm"/> <img src="code.php" id="code" /> 
+    			    <?php }?>
+    			    <input type="submit" name="sign" class="submit" value="发表帖子"/></dd>
     		</dl>
 		</form>
 		<?php }?>

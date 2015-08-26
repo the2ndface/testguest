@@ -58,6 +58,16 @@
                             ")){
    	$_system = array();
     $_system['webname']=$_rows['tg_webname'];
+    $_system['article']=$_rows['tg_article'];
+    $_system['blog']=$_rows['tg_blog'];
+    $_system['photo']=$_rows['tg_photo'];
+    $_system['skin']=$_rows['tg_skin'];
+    $_system['string']=$_rows['tg_string'];
+    $_system['post']=$_rows['tg_post'];
+    $_system['re']=$_rows['tg_re'];
+    $_system['code']=$_rows['tg_code'];
+    $_system['register']=$_rows['tg_register'];
+    
     }else{
         exit('系统表异常，请管理员检查！');
     }

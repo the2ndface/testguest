@@ -17,8 +17,8 @@
     //读取数据
     $_html=_html(_get_xml('new.xml'));
     //调用分页函数
-    global $_pagenum,$_pagesize;
-    _page("SELECT tg_id FROM tg_article",10);
+    global $_pagenum,$_pagesize,$_system;
+    _page("SELECT tg_id FROM tg_article WHERE tg_reid = 0",$_system['article']);
     //读取数据
     $_result = _query("SELECT tg_id,tg_title,tg_type,tg_readcount,tg_commendcount
                          FROM tg_article

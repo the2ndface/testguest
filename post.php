@@ -30,11 +30,12 @@
                          	       LIMIT  1
  	        ")
  	    ){
+ 	        global $_system;
  	        //对比uniqid
  	        _uniqid($_rows['tg_uniqid'],$_COOKIE['uniqid']);
  	        //验证是否在规定的时间外发帖
  	        //_time(time(),$_COOKIE['post_time'],90);
- 	        _time(time(),$_rows['tg_post_time'],90);
+ 	        _time(time(),$_rows['tg_post_time'],$_system['post']);
  	        include ROOT_PATH.'includes/check.func.php';
  	        //定义数据接收数据
             $_clean = array();

@@ -1,6 +1,10 @@
 window.onload = function(){
 	code();
+	
+	var fm = document.getElementsByName('register')[0];
 	var faceimg = document.getElementById('faceimg');
+	
+	if(fm == null) return;
 	faceimg.onclick = function (){
 		window.open('face.php','face','width=400,height=400,top=0,left=0,scrollbars=1');
 	}
@@ -8,7 +12,6 @@ window.onload = function(){
 	
 	
 	//表单验证
-	var fm = document.getElementsByName('register')[0];
 	fm.onsubmit = function (){
 		//能用客户端验证的尽量用客户端验证
 		//用户名验证

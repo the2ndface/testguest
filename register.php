@@ -127,6 +127,7 @@
 
 	<div id="register">
 		<h2>会员注册</h2>
+		<?php if(!empty($_system['register'])){?>
 		<form action="register.php?action=register" name="register" method="post">
 			<input type="hidden" name="uniqid" value="<?php echo $_uniqid; ?>"  />
 			<dl>
@@ -146,6 +147,9 @@
 				<dd><input type="submit" name="sign" class="submit" value="注册"/></dd>
 			</dl>
 		</form>
+		<?php }else{
+		          echo '<h4 style="text-align:center; margin:20px;">此网站已关闭新用户注册！</h4>';
+		}?>
 	</div>
 	<?php 
 		require ROOT_PATH.'includes/footer.inc.php';

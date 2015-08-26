@@ -20,9 +20,12 @@
 
     //开始处理登录状态
     if($_GET['action']=='login'){
-        //为了防止恶意注册和跨站攻击
- 		_check_code($_POST['code'], $_SESSION['code']);
-		
+        global  $_system;
+        if(!empty($_system['code'])){
+            //为了防止恶意注册和跨站攻击
+ 		    _check_code($_POST['code'], $_SESSION['code']);
+        }
+        
  		include ROOT_PATH.'includes/login.func.php';
  		
  		//接收数据
@@ -86,7 +89,9 @@
 				           <input type="radio" name="time" value='2' />一周
 				           <input type="radio" name="time" value='3' />一月
 				</dd>
+				<?php if(!empty($_system['code'])){?>
 				<dd>验 证 码：<input type="text" name="code" class="text code"/> <img src="code.php" id="code" /></dd>
+				<?php }?>
 				<dd><input type="submit" name="submit" class="button" value="登录"/><input type="button" name="button" id="location" class="button location" value="注册"/></dd>
 			</dl>
 		</form>

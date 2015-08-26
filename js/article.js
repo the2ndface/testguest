@@ -23,13 +23,14 @@ window.onload = function () {
 				return false;
 			}
 			//验证码验证
-			if (fm.code.value.length != 4) {
-				alert('验证码必须是4位');
-				fm.code.value = ''; //清空
-				fm.code.focus(); //将焦点以至表单字段
-				return false;
+			if(fm.code !=undefined){
+				if (fm.code.value.length != 4) {
+					alert('验证码必须是4位');
+					fm.code.value = ''; //清空
+					fm.code.focus(); //将焦点以至表单字段
+					return false;
+				}
 			}
-			
 			return true;
 		};
 	}

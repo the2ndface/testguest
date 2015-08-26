@@ -48,6 +48,8 @@
 	 * @return string 过滤后的用户名
 	 */
 	function _check_username($_string,$_min_num,$_max_num){
+		
+	    global $_system;
 		//去掉两边空格
 		$_string = trim($_string);
 		//长度小于2位或者大于20位都不可
@@ -61,10 +63,7 @@
 			_alert_back('用户名不得包含敏感字符');
 		}
 		//限制敏感用户名
-		$_mg[0] = '李威';
-		$_mg[1] = '尚仙斌';
-		$_mg[2] = '徐袜袜';
-		
+		$_mg = explode('|', $_system['string']);
 		
 		//告诉用户哪些不能注册
 		foreach($_mg as $value){
