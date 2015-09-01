@@ -45,7 +45,6 @@
     ?>
     <div id='member_main'>
         <h2>会员管理中心</h2>
-        <form method="post" action="?action=delete">
             <table>
                 <tr><th>会员ID</th><th>会员名</th><th>邮件</th><th>注册时间</th><th>操作</th></tr>
                 <?php 
@@ -63,7 +62,6 @@
                     _free_result($_result);
                 ?>
             </table>
-        </form>
         <?php _paging(2);?>
     </div>
 
