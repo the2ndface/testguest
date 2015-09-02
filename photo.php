@@ -17,7 +17,7 @@
     global $_pagenum,$_pagesize,$_system;
     _page('SELECT tg_id FROM tg_dir',$_system['photo']);
     //从数据库取出结果集
-    $_result=_query("SELECT     tg_id,tg_name,tg_type
+    $_result=_query("SELECT     tg_id,tg_name,tg_type,tg_face
                        FROM     tg_dir
                    ORDER BY     tg_date DESC
                       LIMIT     $_pagenum,$_pagesize
@@ -45,18 +45,24 @@
 	        $_html['id'] = $_rows['tg_id'];
 			$_html['name'] = $_rows['tg_name'];
 			$_html['type'] = $_rows['tg_type'];
+			$_html['face'] = $_rows['tg_face'];
 			$_html = _html($_html);
 			if($_html['type']==0){
 			    $_html[type_html]='(公开)';
 			}else{
 			    $_html[type_html]='(私密)';
 			}
+			if(empty($_html['face'])){
+			    $_html['face_html']='';
+			}else{
+			    $_html['face_html']='<img src="'.$_html['face'].'" alt="'.$_html['name'] .'">';
+			}
 	?>
 	<dl>
-	   <dt></dt>
+	   <dt><?php echo $_html['face_html']?></dt>
 	   <dd><a href="photo_show.php?id=<?php echo $_html['id']?>"><?php echo $_html['name'].' '.$_html[type_html]?></a></dd>
 	   <?php if(isset($_SESSION['admin']) && isset($_COOKIE['username'])){?>
-	   <dd>[修改] [删除]</dd>
+	   <dd>[<a href="photo_modify_dir.php?id=<?php echo $_html['id'];?>">修改</a>] [删除]</dd>
 	   <?php }?>
 	</dl>
     <?php }?>

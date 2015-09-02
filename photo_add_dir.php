@@ -25,7 +25,9 @@
             $_clean = array();
             $_clean['name'] = _check_dir_name($_POST['name'], 2, 20);
             $_clean['type'] = $_POST['type'];
-            $_clean['password'] = _check_dir_password($_POST['password'], 6);
+            if(!empty($_clean['type'])){
+                $_clean['password'] = _check_dir_password($_POST['password'], 6);
+            }
             $_clean['content'] = $_POST['content'];
             $_clean['dir'] = time();
             $_clean = _mysql_string($_clean);
