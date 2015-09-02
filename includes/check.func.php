@@ -313,8 +313,32 @@
 	    return $_string;
 	}
 	
+	/**
+	 * _check_dir_name() 检查目录名
+	 * @param unknown $_string
+	 * @param unknown $_min
+	 * @param unknown $_max
+	 * @return unknown
+	 */
+	function _check_dir_name($_string,$_min,$_max) {
+	    if (mb_strlen($_string,'utf-8') < $_min || mb_strlen($_string,'utf-8') > $_max ) {
+	        _alert_back('相册名不得小于'.$_min.'位或者不能大于'.$_max.'位！');
+	    }
+	    return $_string;
+	}
 	
-	
+	/**
+	 * _check_dir_name() 检查密码
+	 * @param unknown $_string
+	 * @param unknown $_num
+	 * @return string
+	 */
+	function _check_dir_password($_string,$_num) {
+	    if (strlen($_string) < $_num) {
+	        _alert_back('密码不得小于'.$_num.'位！');
+	    }
+	    return sha1($_string);
+	}
 	
 	
 	

@@ -13,6 +13,17 @@
  	define('SCRIPT','photo' );
  //引入公共文件	
  	require dirname(__FILE__).'/includes/common.inc.php';
+ 	//调用分页函数
+    global $_pagenum,$_pagesize,$_system;
+    _page('SELECT tg_id FROM tg_dir',$_system['photo']);
+    //从数据库取出结果集
+    $_result=_query("SELECT     tg_id,tg_name,tg_type
+                       FROM     tg_dir
+                   ORDER BY     tg_date DESC
+                      LIMIT     $_pagenum,$_pagesize
+                   ");
+    
+ 	
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -28,7 +39,30 @@
 	?>
 <div id='photo'>
 	<h2>相册列表</h2>
+	<?php 
+	    $_html=array();
+	    while(!!$_rows=_fetch_array_list($_result)){
+	        $_html['id'] = $_rows['tg_id'];
+			$_html['name'] = $_rows['tg_name'];
+			$_html['type'] = $_rows['tg_type'];
+			$_html = _html($_html);
+			if($_html['type']==0){
+			    $_html[type_html]='(公开)';
+			}else{
+			    $_html[type_html]='(私密)';
+			}
+	?>
+	<dl>
+	   <dt></dt>
+	   <dd><a href="photo_show.php?id=<?php echo $_html['id']?>"><?php echo $_html['name'].' '.$_html[type_html]?></a></dd>
+	   <?php if(isset($_SESSION['admin']) && isset($_COOKIE['username'])){?>
+	   <dd>[修改] [删除]</dd>
+	   <?php }?>
+	</dl>
+    <?php }?>
+	<?php if(isset($_SESSION['admin']) && isset($_COOKIE['username'])){?>
 	<p><a href="photo_add_dir.php">添加相册</a></p>
+	<?php }?>
 </div>
     <?php 
 		require ROOT_PATH.'includes/footer.inc.php';

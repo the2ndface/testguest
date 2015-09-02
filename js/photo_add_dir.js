@@ -11,7 +11,7 @@ window.onload = function(){
 	};
 	
 	fm.onsubmit = function(){
-		if (fm.name.value.length < 2 || fm.name.value.length > 40) {
+		if (fm.name.value.length < 2 || fm.name.value.length > 20) {
 			alert('标题不得小于2位或者大于40位');
 			fm.name.value = ''; //清空
 			fm.name.focus(); //将焦点以至表单字段
