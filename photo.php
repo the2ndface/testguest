@@ -59,7 +59,7 @@
 			}
 	?>
 	<dl>
-	   <dt><?php echo $_html['face_html']?></dt>
+	   <dt><a href="photo_show.php?id=<?php echo $_html['id']?>"><?php echo $_html['face_html']?></a></dt>
 	   <dd><a href="photo_show.php?id=<?php echo $_html['id']?>"><?php echo $_html['name'].' '.$_html[type_html]?></a></dd>
 	   <?php if(isset($_SESSION['admin']) && isset($_COOKIE['username'])){?>
 	   <dd>[<a href="photo_modify_dir.php?id=<?php echo $_html['id'];?>">修改</a>] [删除]</dd>
