@@ -13,6 +13,19 @@
  	define('SCRIPT','photo_add_img' );
  //引入公共文件	
  	require dirname(__FILE__).'/includes/common.inc.php';
+ 	//取值
+ 	if(isset($_GET['id'])){
+ 	    if(!!$_rows=_fetch_array("SELECT tg_id,tg_dir FROM tg_dir WHERE tg_id='{$_GET['id']}'")){
+ 	        $_html = array();
+ 	        $_html['id'] = $_rows['tg_id'];
+ 	        $_html['dir'] = $_rows['tg_dir'];
+ 	        $_html = _html($_html);
+ 	    }else{
+ 	        _alert_back('此相册不存在！');
+ 	    }
+ 	}else{
+ 	    _alert_back('非法操作！');
+ 	}
 
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
@@ -33,7 +46,7 @@
     <form method="post" action="?action=addimg">
         <dl>
             <dd>图片名称：<input type="text" name="name" class="text"/></dd>
-            <dd>图片地址：<input type="text" name="url" readonly="readonly" class="text"/><a href="javascript:;" id="up">上传</a></dd>
+            <dd>图片地址：<input type="text" name="url" id='url' readonly="readonly" class="text"/><a href="javascript:;" title="<?php echo $_html['dir'];?>" id="up">上传</a></dd>
             <dd>图片名称：<textarea name="content"></textarea></dd>
             <dd><input type="submit" class="submit" value="添加图片" /></dd>
         </dl>

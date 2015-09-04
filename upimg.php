@@ -56,12 +56,16 @@
                 _alert_back('上传文件不能超过1M');
             }
             
+            //获取文件扩展名
+            $_n = explode('.', $_FILES['userfile']['name']);
+            $_name = $_POST['dir'].'/'.time().'.'.$_n[1];
+            
             //移动文件
             if(is_uploaded_file($_FILES['userfile']['tmp_name'])){
-                if(!move_uploaded_file($_FILES['userfile']['tmp_name'], 'photo/1441162655/'.$_FILES['userfile']['name'])){
+                if(!move_uploaded_file($_FILES['userfile']['tmp_name'], $_name)){
                     _alert_back('移动失败！');
                 }else{
-                    _alert_back('上传成功！');
+                    echo "<script>alert('上传成功');window.opener.document.getElementById('url').value='$_name';window.close();</script>";
                 }
             }else{
                 _alert_close('上传的临时文件不存在！');
@@ -70,6 +74,11 @@
         }else{
             _alert_back('非法登录！');
         }
+ 	}
+ 	
+ 	//取值
+ 	if(!isset($_GET['dir'])){
+ 	    _alert_back('非法操作！');
  	}
 
 ?>
@@ -85,6 +94,7 @@
 <div id='upimg' style="padding:20px;">
     <form method="post" action="?action=up" enctype="multipart/form-data">
         <input type="hidden" name="MAX_FILE_SIZE" value="1000000" />
+        <input type="hidden" name="dir" value="<?php echo $_GET['dir']?>" />
                         选择图片：<input type="file" name="userfile"/>
         <input type="submit" value="上传"/>
     </form>
