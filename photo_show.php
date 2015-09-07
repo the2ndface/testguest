@@ -26,6 +26,8 @@
  	    _alert_back('非法操作！');
  	}
  	
+ 	$_filename = 'photo/1441162655/1441593681.jpg';
+ 	$_percent = 0.3;
 
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
@@ -42,7 +44,7 @@
 	?>
 <div id='photo'>
 	<h2>图片展示</h2>
-
+    <img src="thumb.php?filename=<?php echo $_filename?>&percent=<?php echo $_percent?>" />
 	<p><a href="photo_add_img.php?id=<?php echo $_html['id']?>">上传图片</a></p>
 
 </div>

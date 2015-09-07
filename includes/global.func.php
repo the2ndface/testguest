@@ -150,6 +150,37 @@
     
     
     
+    function _thumb($_filename,$_percent){
+        //生成PNG标头
+        header('Content-type:image/png');
+        $_n = explode('.', $_filename);
+        //获取文件宽和高
+        list($_width,$_height) = getimagesize($_filename);
+        //生成新的高度
+        $_new_width = $_width * $_percent;
+        $_new_height = $_height * $_percent;
+        //创建一张画布
+        $_new_image = imagecreatetruecolor($_new_width, $_new_height);
+        //按照已有图片创建画布
+        switch($_n[1]){
+            case 'jpg' : $_image = imagecreatefromjpeg($_filename);
+    			break;
+    		case 'png' : $_image = imagecreatefrompng($_filename);
+    			break;
+    		case 'gif' : $_image = imagecreatefrompng($_filename);
+    			break; 
+        }
+        //将原图重新采集后至新画布
+        imagecopyresampled($_new_image, $_image, 0, 0, 0, 0, $_new_width, $_new_height, $_width, $_height);
+        //输出图像文件到浏览器
+        imagepng($_new_image);
+        //销毁图像资源
+        imagedestroy($_image);
+        imagedestroy($_new_image);
+    }
+    
+    
+    
     /**
      * _get_xml()读取XML数据
      * @param unknown $_xmlfile
@@ -181,10 +212,7 @@
         
         return $_html;
     }
-
-    
-    
-    
+   
     /**
      * _set_xml() 创建用户XML文件
      * @param unknown $_xmlfile 文件名
@@ -284,6 +312,8 @@
 			_alert_back('验证码不正确!');
 		}
 	}
+	
+	
 	
     /**
      * _page()分页函数
