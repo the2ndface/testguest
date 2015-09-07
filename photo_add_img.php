@@ -31,8 +31,8 @@
             $_clean['sid'] = $_POST['sid'];
             $_clean = _mysql_string($_clean);
             //写入数据库
-            _query("INSERT INTO tg_photo (tg_name,tg_url,tg_content,tg_sid,tg_date)
-                                  VALUES ('{$_clean['name']}','{$_clean['url']}','{$_clean['content']}','{$_clean['sid']}',NOW())
+            _query("INSERT INTO tg_photo (tg_name,tg_url,tg_content,tg_sid,tg_username,tg_date)
+                                  VALUES ('{$_clean['name']}','{$_clean['url']}','{$_clean['content']}','{$_clean['sid']}','{$_COOKIE['username']}',NOW())
                 ");
             if (_affected_rows() == 1) {
                 _close();
