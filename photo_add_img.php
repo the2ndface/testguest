@@ -13,6 +13,39 @@
  	define('SCRIPT','photo_add_img' );
  //引入公共文件	
  	require dirname(__FILE__).'/includes/common.inc.php';
+ 	//这张页面必须是会员
+ 	if(!isset($_COOKIE['username'])){
+ 	    _alert_back('非法登录！');
+ 	}
+ 	//图片信息存入表
+ 	if($_GET['action']=='addimg'){
+ 	    if(!!$_rows=_fetch_array("SELECT tg_uniqid FROM tg_user WHERE tg_username='{$_COOKIE['username']}'")){
+            //敏感操作，检查标识符
+            _uniqid($_rows['tg_uniqid'], $_COOKIE['uniqid']);
+            include 'includes/check.func.php';
+            $_clean = array();
+            $_clean = array();
+            $_clean['name'] = _check_dir_name($_POST['name'],2,20);
+            $_clean['url'] = _check_photo_url($_POST['url']);
+            $_clean['content'] = $_POST['content'];
+            $_clean['sid'] = $_POST['sid'];
+            $_clean = _mysql_string($_clean);
+            //写入数据库
+            _query("INSERT INTO tg_photo (tg_name,tg_url,tg_content,tg_sid,tg_date)
+                                  VALUES ('{$_clean['name']}','{$_clean['url']}','{$_clean['content']}','{$_clean['sid']}',NOW())
+                ");
+            if (_affected_rows() == 1) {
+                _close();
+                _location('图片添加成功！','photo_show.php?id='.$_clean['sid']);
+            } else {
+                _close();
+                _alert_back('图片添加失败！');
+            }
+ 	    }else{
+ 	        _alert_back('非法登录！');
+ 	    }
+ 	}   
+ 	
  	//取值
  	if(isset($_GET['id'])){
  	    if(!!$_rows=_fetch_array("SELECT tg_id,tg_dir FROM tg_dir WHERE tg_id='{$_GET['id']}'")){
@@ -44,6 +77,7 @@
 <div id='photo'>
 	<h2>上传图片</h2>
     <form method="post" action="?action=addimg">
+    <input type="hidden" name="sid" value="<?php echo $_html['id']?>"/>
         <dl>
             <dd>图片名称：<input type="text" name="name" class="text"/></dd>
             <dd>图片地址：<input type="text" name="url" id='url' readonly="readonly" class="text"/><a href="javascript:;" title="<?php echo $_html['dir'];?>" id="up">上传</a></dd>
