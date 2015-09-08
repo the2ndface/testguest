@@ -67,8 +67,8 @@
 	       $_html = _html($_html);
 	?>
 	<dl>
-	   <dt><img src="thumb.php?filename=<?php echo $_html['url']?>&percent=<?php echo $_percent?>" /></dt>
-	   <dd>名称：<?php echo $_html['name']?></dd>
+	   <dt><a href="photo_detail.php?id=<?php echo $_html['id']?>"><img src="thumb.php?filename=<?php echo $_html['url']?>&percent=<?php echo $_percent?>" /></a></dt>
+	   <dd>名称：<a href="photo_detail.php?id=<?php echo $_html['id']?>"><?php echo $_html['name']?></a></dd>
 	   <dd>阅（<strong>0</strong>） 评（<strong>0</strong>） 上传人：<?php echo $_html['username']?></dd>
 	</dl>
 	<?php
