@@ -103,10 +103,18 @@ if ($_GET['action'] == 'modify') {
             //头像选择
             $_html['face_html']='<select name="face">'; 
                 foreach(range(1,9) as $_num){
-                    $_html['face_html'].= '<option value="face/m0'.$_num.'.gif">face/m0'.$_num.'.gif</option>';
+                    if($_html['face']=='face/m0'.$_num.'.gif'){
+                        $_html['face_html'].= '<option value="face/m0'.$_num.'.gif" selected="selected">face/m0'.$_num.'.gif</option>';
+                    }else{
+                        $_html['face_html'].= '<option value="face/m0'.$_num.'.gif">face/m0'.$_num.'.gif</option>';
+                    }
                 }
                 foreach(range(10,64) as $_num){
-                    $_html['face_html'].= '<option value="face/m0'.$_num.'.gif">face/m0'.$_num.'.gif</option>';
+                    if($_html['face']=='face/m'.$_num.'.gif'){
+                        $_html['face_html'].= '<option value="face/m'.$_num.'.gif" selected="selected">face/m'.$_num.'.gif</option>';
+                    }else{
+                        $_html['face_html'].= '<option value="face/m'.$_num.'.gif">face/m'.$_num.'.gif</option>';
+                    }
                 }
             $_html['face_html'].='</select>';     
 

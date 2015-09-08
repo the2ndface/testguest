@@ -57,7 +57,7 @@
  	}
  	//读取图片
  	if(isset($_GET['id'])){
- 	    if(!!$_rows=_fetch_array("SELECT tg_id,tg_name,tg_url,tg_content,tg_username,tg_readcount,tg_commendcount,tg_date 
+ 	    if(!!$_rows=_fetch_array("SELECT tg_id,tg_sid,tg_name,tg_url,tg_content,tg_username,tg_readcount,tg_commendcount,tg_date 
  	                          FROM tg_photo 
  	                         WHERE tg_id='{$_GET['id']}'
  	                         LIMIT 1")){
@@ -65,6 +65,7 @@
             _query("UPDATE tg_photo SET tg_readcount=tg_readcount+1 WHERE tg_id='{$_GET['id']}'");
  	        $_html = array();
  	        $_html['id'] = $_rows['tg_id'];
+ 	        $_html['sid'] = $_rows['tg_sid'];
  	        $_html['name'] = $_rows['tg_name'];
  	        $_html['url'] = $_rows['tg_url'];
  	        $_html['username'] = $_rows['tg_username'];
@@ -89,7 +90,22 @@
  	                         ORDER BY tg_date ASC
  	                            LIMIT $_pagenum,$_pagesize
  	                         ");
-
+ 	        
+ 	        //上一页，取得比自己大的ID中，最小的那个即可。
+ 	        $_html['preid'] = _fetch_array("SELECT min(tg_id) AS id FROM tg_photo WHERE tg_sid='{$_html['sid']}' AND tg_id>'{$_html['id']}'");
+            if(!empty($_html['preid']['id'])){
+                $_html['pre'] = '<a href="photo_detail?id='.$_html['preid']['id'].'#pre">上一张</a>';
+            }else{
+                $_html['pre'] = '<span>到顶了</span>';
+            }
+            
+            //下一页，取得比自己小的ID中，最大的那个即可。
+            $_html['nextid'] = _fetch_array("SELECT max(tg_id) AS id FROM tg_photo WHERE tg_sid='{$_html['sid']}' AND tg_id<'{$_html['id']}'");
+            if(!empty($_html['nextid']['id'])){
+                $_html['next'] = '<a href="photo_detail?id='.$_html['nextid']['id'].'#next">下一张</a>';
+            }else{
+                $_html['pre'] = '<span>到底了</span>';
+            }
  	    }else{
  	        _alert_back('此图片不存在！');
  	    }
@@ -115,9 +131,11 @@
 	?>
 <div id='photo'>
 	<h2>图片详情</h2>
+	<a name="pre"></a><a name="next"></a>
 	<dl class="detail">
 	   <dd class="name"><?php echo $_html['name']?></dd>
-	   <dt><img src="<?php echo $_html['url']?>" /></dt>
+	   <dt><?php echo $_html['pre']?><img src="<?php echo $_html['url']?>" /><?php echo $_html['next']?></dt>
+	   <dd><a href="photo_show.php?id=<?php echo $_html['sid']?>">返回相册</a></dd>
 	   <dd>阅（<strong><?php echo $_html['readcount']?></strong>） 评（<strong><?php echo $_html['commendcount']?></strong>） 于<?php echo $_html['date']?>上传BY：<?php echo $_html['username']?></dd>
 	</dl>
 	

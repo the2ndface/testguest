@@ -37,7 +37,7 @@
  	_page("SELECT tg_id FROM tg_photo WHERE tg_sid='{$_dirhtml['id']}'",$_system['photo']);
  	
     //读取表
-    $_result = _query("SELECT tg_id,tg_name,tg_url,tg_username 
+    $_result = _query("SELECT tg_id,tg_name,tg_url,tg_username,tg_readcount,tg_commendcount 
                                FROM tg_photo 
                               WHERE tg_sid='{$_dirhtml['id']}'
                            ORDER BY tg_date DESC
@@ -65,12 +65,14 @@
 	       $_html['username'] = $_rows['tg_username'];
 	       $_html['name'] = $_rows['tg_name'];
 	       $_html['url'] = $_rows['tg_url'];
+	       $_html['readcount'] = $_rows['tg_readcount'];
+	       $_html['commendcount'] = $_rows['tg_commendcount'];
 	       $_html = _html($_html);
 	?>
 	<dl>
 	   <dt><a href="photo_detail.php?id=<?php echo $_html['id']?>"><img src="thumb.php?filename=<?php echo $_html['url']?>&percent=<?php echo $_percent?>" /></a></dt>
 	   <dd>名称：<a href="photo_detail.php?id=<?php echo $_html['id']?>"><?php echo $_html['name']?></a></dd>
-	   <dd>阅（<strong>0</strong>） 评（<strong>0</strong>） 上传人：<?php echo $_html['username']?></dd>
+	   <dd>阅（<strong><?php echo $_html['readcount']?></strong>） 评（<strong><?php echo $_html['commendcount']?></strong>） 上传人：<?php echo $_html['username']?></dd>
 	</dl>
 	<?php
         }

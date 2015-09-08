@@ -27,6 +27,21 @@
 	margin:20px;
 }
 
+#photo dl.detail dt a{
+	text-decoration:none;
+	color:#f60;
+	padding:20px;
+	vertical-align:top;
+	font-size:14px;
+}
+
+#photo dl.detail dt span{
+	color:#f60;
+	padding:20px;
+	vertical-align:top;
+	font-size:14px;
+}
+
 #photo dl.detail dd{
 	font-size:14px;
 	padding:10px;
