@@ -165,3 +165,118 @@
 	color:#333;
 }
 
+#photo div.content {
+	float:right;
+	width:680px;
+	padding:5px 20px 0 0;
+}
+#photo div.content .user {
+	height:30px;
+	line-height:30px;
+	background:url(../../images/member.gif) no-repeat left center;
+	border-bottom:1px dashed #999;
+	color:#666;
+	padding:0 0 0 20px;
+}
+#photo div.content .user span {
+	float:right;
+	color:#06f;
+}
+#photo div.content h3 {
+	font-size:14px;
+	height:40px;
+	line-height:40px;
+}
+#photo div.content h3 span {
+	font-size:12px;
+	font-weight:normal;
+	color:#06f;
+}
+#photo div.content h3 span a {
+	text-decoration:none;
+	color:#06f;
+}
+#photo div.content h3 span a:hover {
+	color:#f60;
+	text-decoration:underline;
+}
+#photo div.content h3 img {
+	position:relative;
+	top:2px;
+}
+#photo div.content .detail {
+	line-height:200%;
+	font-size:14px;
+}
+#photo div.content .detail a {
+	text-decoration:none;
+	color:blue;
+}
+#photo div.content .detail a:hover {
+	color:#f60;
+	text-decoration:underline;
+}
+#photo div.content div.detail p.autograph {
+	color:#666;
+	border-bottom:1px dashed #666;
+	margin:5px 0;
+	width:80%;
+	padding:5px 0;
+	text-align:left;
+}
+#photo div.content .read {
+	font-size:14px;
+	color:#666;
+	padding:10px 0 0 0;
+}
+#photo div.content .read p {
+	padding:0 0 15px 0;
+	text-align:right;
+}
+#photo div.re dl {
+	width:170px;
+	padding:10px 0 0 45px;
+	float:left;
+}
+#photo div.re dl dt {
+	width:170px;
+	margin:0 0 5px 0;
+}
+#photo div.re dl dt img {
+	margin:0 auto;
+	display:block;
+}
+#photo div.re dl dd {
+	height:20px;
+	line-height:20px;
+	text-align:center;
+	width:85px;
+	float:left;
+}
+#photo div.re dl dd.email,#photo div.re dl dd.url {
+	width:190px;
+	text-align:left;
+	padding:2px 0 0 0;
+	text-indent:5px;
+}
+#photo div.re dl dd a {
+	text-decoration:none;
+	color:#333;
+}
+#photo div.re dl dd.user {
+	width:170px;
+	float:none;
+	color:#f60;
+}
+#photo div.re dl dd.message {
+	background:url(../../images/x1.gif) no-repeat 5px 35%;
+}
+#photo div.re dl dd.friend {
+	background:url(../../images/x2.gif) no-repeat left 35%;
+}
+#photo div.re dl dd.guest {
+	background:url(../../images/x3.gif) no-repeat 5px 35%;
+}
+#photo div.re dl dd.flower {
+	background:url(../../images/x4.gif) no-repeat left 35%;
+}

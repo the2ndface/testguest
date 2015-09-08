@@ -15,8 +15,9 @@
  	require dirname(__FILE__).'/includes/common.inc.php';
  	//取值
  	if(isset($_GET['id'])){
- 	    if(!!$_rows=_fetch_array("SELECT tg_id FROM tg_dir WHERE tg_id='{$_GET['id']}'")){
+ 	    if(!!$_rows=_fetch_array("SELECT tg_id,tg_name FROM tg_dir WHERE tg_id='{$_GET['id']}'")){
  	        $_dirhtml = array();
+ 	        $_dirhtml['name'] = $_rows['tg_name'];
  	        $_dirhtml['id'] = $_rows['tg_id'];
  	        $_dirhtml = _html($_dirhtml);
  	    }else{
@@ -56,7 +57,7 @@
 		require ROOT_PATH.'includes/header.inc.php';
 	?>
 <div id='photo'>
-	<h2>图片展示</h2>
+	<h2><?php echo $_dirhtml['name']?></h2>
 	<?php 
 	   $_html = array();
 	   while (!!$_rows = _fetch_array_list($_result)){
