@@ -9,6 +9,33 @@
  * Data:2015-1-5
  */
 
+    /**
+     * 删除非空目录 
+     * @param unknown $dirName
+     * @return boolean
+     */
+    function _remove_Dir($dirName)
+    {
+        if(! is_dir($dirName))
+        {
+            return false;
+        }
+        $handle = @opendir($dirName);
+        while(($file = @readdir($handle)) !== false)
+        {
+            if($file != '.' && $file != '..')
+            {
+                $dir = $dirName . '/' . $file;
+                is_dir($dir) ? _remove_Dir($dir) : @unlink($dir);
+            }
+        }
+        closedir($handle);
+        return rmdir($dirName) ;
+    }
+
+    /**
+     * 判断用户登录状态
+     */
     function _manage_login(){
         if((!isset($_COOKIE['username'])) || (!isset($_SESSION['admin']))){
             _alert_back('非法登录！');
