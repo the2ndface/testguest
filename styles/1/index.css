@@ -161,3 +161,9 @@
 	border:2px solid #ccc;
 	float:left;
 }
+
+#pics img {
+	display:block;
+	border:none;
+	margin:20px auto;
+}

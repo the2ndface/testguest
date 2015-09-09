@@ -61,6 +61,20 @@
  	                          FROM tg_photo 
  	                         WHERE tg_id='{$_GET['id']}'
  	                         LIMIT 1")){
+            //防止加密相册图片穿插访问
+    		//可以先取得这个图片的sid，也就是它的目录，
+    		//然后再判断这个目录是否是加密的，
+    		//如果是加密的，再判断是否有对应的cookie存在，并且对于相应的值
+    		//管理员不受这个限制
+    		if(isset($_SESSION['admin'])){
+                if(!!$_dirs = _fetch_array("SELECT tg_type,tg_id,tg_name FROM tg_dir WHERE tg_id='{$_rows['tg_sid']}'")){
+                    if(!empty($_dirs['tg_type']) && $_COOKIE['photo'.$_dirs['tg_id']]!=$_dirs['tg_name']){
+                        _alert_back('非法操作');
+                    }
+                }else{
+                    _alert_back('相册目录表错误');
+                }
+    		}
             //累积阅读量
             _query("UPDATE tg_photo SET tg_readcount=tg_readcount+1 WHERE tg_id='{$_GET['id']}'");
  	        $_html = array();

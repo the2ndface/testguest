@@ -26,7 +26,34 @@
                      ORDER BY tg_date DESC
                         LIMIT $_pagenum,$_pagesize
                      ");
- 	
+ 	//读取最新图片
+ 	if(isset($_SESSION['admin'])){
+ 	    $_photo = _fetch_array("SELECT tg_id AS id,
+ 	                               tg_name AS name,
+ 	                               tg_url AS url
+ 	                          FROM
+ 	                               tg_photo
+ 	                      ORDER BY
+ 	                               tg_date DESC
+ 	                         LIMIT
+ 	                               1
+ 	    
+ 	                      ");
+ 	}else{
+     	$_photo = _fetch_array("SELECT tg_id AS id,
+     	                               tg_name AS name,
+     	                               tg_url AS url
+     	                          FROM
+     	                               tg_photo
+     	                         WHERE
+     	                               tg_sid in (SELECT tg_id FROM tg_dir WHERE tg_type=0)
+     	                      ORDER BY 
+     	                               tg_date DESC
+     	                         LIMIT 
+     	                               1   
+     	    
+     	                      ");
+ 	}
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -77,7 +104,8 @@
 </div>
 
 <div id='pics'>
-	<h2>最新图片</h2>
+	<h2>最新图片--<?php echo $_photo['name']?></h2>
+	<a href="photo_detail.php?id=<?php echo $_photo['id']?>"><img src="thumb.php?filename=<?php echo $_photo['url']?>&percent=0.4" alt="<?php echo $_photo['name']?>" /></a>
 </div>
 	<?php 
 		require ROOT_PATH.'includes/footer.inc.php';
