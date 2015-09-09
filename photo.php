@@ -47,6 +47,9 @@
 			$_html['type'] = $_rows['tg_type'];
 			$_html['face'] = $_rows['tg_face'];
 			$_html = _html($_html);
+			
+			//获取照片数
+			$_html['photo'] = _fetch_array("SELECT count(*) AS count FROM tg_photo WHERE tg_sid='{$_html['id']}'");
 			if($_html['type']==0){
 			    $_html[type_html]='(公开)';
 			}else{
@@ -60,7 +63,7 @@
 	?>
 	<dl>
 	   <dt><a href="photo_show.php?id=<?php echo $_html['id']?>"><?php echo $_html['face_html']?></a></dt>
-	   <dd><a href="photo_show.php?id=<?php echo $_html['id']?>"><?php echo $_html['name'].' '.$_html[type_html]?></a></dd>
+	   <dd><a href="photo_show.php?id=<?php echo $_html['id']?>"><?php echo $_html['name'].' ['.$_html['photo']['count'].'] '.$_html[type_html]?></a></dd>
 	   <?php if(isset($_SESSION['admin']) && isset($_COOKIE['username'])){?>
 	   <dd>[<a href="photo_modify_dir.php?id=<?php echo $_html['id'];?>">修改</a>] [删除]</dd>
 	   <?php }?>
