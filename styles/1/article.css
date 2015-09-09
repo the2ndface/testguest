@@ -5,12 +5,25 @@
 	min-height:600px;
 	border:2px solid #ccc;
 	font-size:12px;
+	position:relative;
 }
 
 #article h2{
 	text-indent:0;
 	text-align:center;
 }
+
+#article img.nice {
+	position:absolute;
+	top:-30px;
+	left:580px;
+}
+#article img.hot {
+	position:absolute;
+	top:-30px;
+	left:680px;
+}
+
 
 #article #subject {
 

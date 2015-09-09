@@ -73,8 +73,10 @@
 			$_html = _html($_html);
 			
 			//判断权限
-			if ($_COOKIE['username'] != $_html['username']) {
-			    _alert_back('你没有权限修改！');
+			if(!isset($_SESSION['admin'])){
+    			if ($_COOKIE['username'] != $_html['username']) {
+    			    _alert_back('你没有权限修改！');
+    			}
 			}
  	    }
  	}else{

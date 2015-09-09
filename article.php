@@ -15,6 +15,29 @@
  	define('SCRIPT','article' );
  	//引入公共文件	
  	require dirname(__FILE__).'/includes/common.inc.php';
+ 	//设置、取消精华
+ 	if($_GET['action']=='nice' && isset($_GET['id']) && isset($_GET['on'])){
+ 	    //唯一标识符验证
+ 	    if(!!$_rows=_fetch_array("SELECT   tg_uniqid,tg_article_time
+ 	        FROM   tg_user
+ 	        WHERE   tg_username='{$_COOKIE['username']}'
+ 	        LIMIT   1
+ 	        ")
+ 	    ){
+ 	        //对比uniqid
+ 	        _uniqid($_rows['tg_uniqid'],$_COOKIE['uniqid']);
+ 	        _query("UPDATE tg_article SET tg_nice='{$_GET['on']}' WHERE tg_id='{$_GET['id']}'");
+ 	        if (_affected_rows() == 1) {
+ 	            _close();
+ 	            _location('精华帖操作成功！','article.php?id='.$_GET['id']);
+ 	        } else {
+ 	            _close();
+ 	            _alert_back('精华帖设置失败！');
+ 	        }
+ 	    }else{
+ 	        _alert_back('非法登录 ');
+ 	    }
+ 	}
  	//处理回帖
  	if($_GET['action']=='rearticle'){
  	    global $_system;
@@ -70,7 +93,7 @@
  	
  	//读出帖子数据
         if(isset($_GET['id'])){
- 	    if(!!$_rows=_fetch_array("SELECT tg_id,tg_username,tg_type,tg_title,tg_content,tg_readcount,tg_commendcount,tg_date,tg_last_modify_date
+ 	    if(!!$_rows=_fetch_array("SELECT tg_id,tg_username,tg_type,tg_nice,tg_title,tg_content,tg_readcount,tg_commendcount,tg_date,tg_last_modify_date
  	                                FROM tg_article
  	                               WHERE tg_reid= 0 AND tg_id='{$_GET['id']}'")){
  	                             
@@ -78,6 +101,7 @@
  	        _query("UPDATE tg_article SET tg_readcount=tg_readcount+1 WHERE tg_id='{$_GET['id']}'");
  	        $_html = array();
  	        $_html['reid'] = $_rows['tg_id'];
+ 	        $_html['nice'] = $_rows['tg_nice'];
  	        $_html['username_subject'] = $_rows['tg_username'];
  	        $_html['title'] = $_rows['tg_title'];
  	        $_html['type'] = $_rows['tg_type'];
@@ -109,7 +133,7 @@
             $_id = 'id='.$_html['reid'].'&';
             
             //修改主题帖子
-            if($_html['username_subject']==$_COOKIE['username']){
+            if($_html['username_subject']==$_COOKIE['username'] || isset($_SESSION['admin'])){
                 $_html['subject_modify']='<a href="article_modify.php?id='.$_html['reid'].'">[修改]</a>';
             }
             
@@ -168,7 +192,21 @@
 
 	<div id="article">
 		<h2>帖子详情</h2>
-		<?php if($_page==1){?>
+		<?php 
+		if (!empty($_html['nice'])) {
+    	?>
+    	<img src="images/nice.gif" alt="精华帖" class="nice" />
+    	
+    	<?php 
+    		}
+    		//浏览量达到400，并且评论量达到20即可为热帖
+    		if ($_html['readcount'] >= 400 && $_html['commendcount'] >=15) {
+    	?>
+	    <img src="images/hot.gif" alt="热帖" class="hot" />
+		<?php
+    		} 
+		    if($_page==1){
+		?>
 		<div id="subject">
       		<dl>
     			<dd class="user"><?php echo $_html['username_subject']?>(<?php echo $_html['sex']?>)[楼主]</dd>
@@ -182,7 +220,13 @@
     		</dl>
     		<div class="content">
     			<div class="user">
-    				<span><?php echo $_html['subject_modify']?>1#</span><?php echo $_html['username_subject']?> | 发表于：<?php echo $_html['date']?>
+    			    <span>
+    			    <?php if (empty($_html['nice'])) {?>
+					[<a href="article.php?action=nice&on=1&id=<?php echo $_html['reid']?>">设置精华</a>]
+					<?php } else {?>
+					[<a href="article.php?action=nice&on=0&id=<?php echo $_html['reid']?>">取消精华</a>]
+					<?php }?>
+    				<?php echo $_html['subject_modify']?>1#</span><?php echo $_html['username_subject']?> | 发表于：<?php echo $_html['date']?>
     			</div>
     			<h3>主题：<?php echo $_html['title']?> <img src="images/icon<?php echo $_html['type']?>.gif" alt="icon" /><?php echo $_html['re']?></h3>
     			<div class="detail">
