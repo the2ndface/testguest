@@ -84,6 +84,8 @@
         $_html['register'] = $_rows['tg_register'];
         $_html = _html($_html);
         
+
+        
     }else{
         _alert_back('系统表读取错误请联系系统管理员！');
     }

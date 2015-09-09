@@ -14,6 +14,7 @@
 	}	
 ?>
 <div id='header'>
+<script type="text/javascript" src="js/skin.js"></script>
 	<h1><a href='index.php'>飘城WEB俱乐部</a></h1>
 	<ul>
 		<li><a href="index.php">首页</a></li>
@@ -31,7 +32,16 @@
 		?>
 		<li><a href="blog.php">博友</a></li>
 		<li><a href="photo.php">相册</a></li>
-		<li>风格</li>
+		<li class="skin" onmouseover='inskin()' onmouseout='outskin()'> 
+            <a href="javascript:;">风格</a>
+		    <dl id="skin">
+		       <dd><a href="skin.php?id=1">1.一号皮肤</a></dd>
+		       <dd><a href="skin.php?id=2">2.二号皮肤</a></dd>
+		       <dd><a href="skin.php?id=3">3.三号皮肤</a></dd>
+		    </dl>
+          
+		
+		</li>
 		<?php 
 		      if(isset($_COOKIE['username']) && isset($_SESSION['admin'])){
 		          echo '<li><a href="manage.php" class="manage">管理</a></li>';

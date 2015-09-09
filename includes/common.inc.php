@@ -68,6 +68,10 @@
     $_system['code']=$_rows['tg_code'];
     $_system['register']=$_rows['tg_register'];
     
+    if($_COOKIE['skin']){
+        $_system['skin']=$_COOKIE['skin'];
+    }
+    
     }else{
         exit('系统表异常，请管理员检查！');
     }
